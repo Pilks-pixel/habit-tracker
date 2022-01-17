@@ -2,11 +2,26 @@ const nav = document.querySelector('nav');
 const main = document.querySelector('main');
 const authSection = document.querySelector('.auth'); 
 
-// const publicRoutes = ['#', '#login', '#register'];
-const publicRoutes = ['#login', '#register'];
+let togle = true;
+let path = '#main';
+
+const publicRoutes = ['#', '#login', '#register'];
+// const publicRoutes = ['#login', '#register'];
 const privateRoutes = ['#dashboard', '#streak'];
 
 window.addEventListener('hashchange', updateContent);
+
+document.addEventListener("click", function (e) {
+    if (e.target && e.target.className == 'switch-button-checkbox') {
+        if (togle === true) {
+            renderRegisterForm();
+            togle = false
+        } else {
+            renderLoginForm();
+            togle = true;
+        }
+    }
+})
 
 function updateNav(){
     nav.innerHTML = '';
@@ -14,18 +29,19 @@ function updateNav(){
     let logoutBtn;
     if (currentUser()){
         links = privateRoutes.map(createNavLink);
-        logoutBtn = document.createElement('button');
-        logoutBtn.textContent = 'Logout';
-        logoutBtn.onclick = logout;
-        nav.appendChild(logoutBtn);
+        // logoutBtn = document.createElement('button');
+        // logoutBtn.textContent = 'Logout';
+        // logoutBtn.onclick = logout;
+        // nav.appendChild(logoutBtn);
     } else {
         links = publicRoutes.map(createNavLink);
     }
-    links.forEach(l => nav.insertBefore(l, logoutBtn))
+    // links.forEach(l => nav.insertBefore(l, logoutBtn))
+    // links.forEach(l => nav.appendChild(l));
 }
 
 function updateMain(path) {
-    // main.innerHTML = '';
+    main.innerHTML = '';
 
     console.log("updateMain",path)
     if (path) {
@@ -35,7 +51,10 @@ function updateMain(path) {
                 renderLoginForm(); break;
             case '#register':
                 console.log("render register form")
-                // renderRegisterForm(); break;
+                renderRegisterForm(); break;
+            case '#main':
+                console.log("render home");
+                renderHomepage();
             // case '#dashboard':
             //     renderFeed(); break;
             // case '#streak':
@@ -44,17 +63,24 @@ function updateMain(path) {
                 render404(); break;
         }
     } else {
-        console.log("render login")
-        renderLoginForm();
-        // renderHomepage();
+        // console.log("render login")
+        console.log("render homepage")
+        // renderLoginForm();
+        renderHomepage();
     }
 }
 
 function createNavLink(route){
+    const p = document.createElement('p');
+    nav.appendChild(p);
     const link = document.createElement('a');
     link.textContent = route === '#' ? 'Home' : `${route[1].toUpperCase()}${route.substring(2)}`;
     console.log("createNavlink",link.textContent)
-    link.href = route;
+    console.log(link)
+    link.setAttribute('href', route);
+    // link.href = route;
+    console.log("link.href ",link.href)
+    p.appendChild(link);
     return link;
 }
 
@@ -65,10 +91,11 @@ function updateContent(){
     console.log("currentUser",currentUser())
     if (privateRoutes.includes(path) && !currentUser()){
         window.location.hash = '#';
+        console.log("updateContent change hash", window.location.hash)
     } else if (!privateRoutes.includes(path) && currentUser()) {
         window.location.hash = '#dashboard';
     } else {
-        updateNav();
+        // updateNav();
         updateMain(path);
     }
 }

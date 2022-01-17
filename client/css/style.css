@@ -1,6 +1,13 @@
 body {
     background-color: #E2FFFC;
+    font-family: 'Roboto', sans-serif;
 }
+
+/* nav */
+a {
+    /* margin-left: 20px; */
+}
+
 
 /* auth section */
 /* Split the screen in half */
@@ -37,3 +44,88 @@ body {
   .centered img {
     width: 520px;
   }
+
+  .appTitle {
+      color: #316879;
+      text-align: center;
+      margin-top: 40px;
+      font-family: 'Reggae One', cursive;
+      font-size: 3rem;
+  }
+
+
+/* switch login-register*/
+/* login active */
+.switch-button {
+    /* background: rgba(255, 255, 255, 0.56); */
+    background: #64ADA6;
+    border-radius: 30px;
+    border-color: #64ADA6;
+    overflow: hidden;
+    width: 240px;
+    text-align: center;
+    font-size: 16px;
+    letter-spacing: 1px;
+    /* color: #155fff; */
+    color: #316879;
+    position: relative;
+    padding-right: 120px;
+    position: relative;
+}
+/* register inactive */
+.switch-button:before {
+    content: "Register";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #E2FFFC;
+    z-index: 3;
+    pointer-events: none;
+}
+/* overlapping */
+.switch-button-checkbox {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    z-index: 2;
+   
+}
+.switch-button-checkbox:checked + .switch-button-label:before {
+    transform: translateX(120px);
+    transition: transform 300ms linear;
+}
+
+.switch-button-checkbox + .switch-button-label {
+    position: relative;
+    padding: 8px 0;
+    display: block;
+    user-select: none;
+    pointer-events: none;
+}
+/* бегунок */
+.switch-button-checkbox + .switch-button-label:before {
+    content: "";
+    background: #fff;
+    height: 100%;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    border-radius: 30px;
+    transform: translateX(0);
+    transition: transform 300ms;
+}
+.switch-button-checkbox + .switch-button-label .switch-button-label-span {
+    position: relative;
+}
+

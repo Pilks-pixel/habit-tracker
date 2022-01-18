@@ -22,9 +22,13 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
+        console.log(req.body.email)
+        console.log(req.body.passwordDigest)
+        console.log(req.body.username)
         const user = await User.findByEmail(req.body.email)
+        console.log(user)
         if(!user){ throw new Error('No user with this email') }
-        const authed = bcrypt.compare(req.body.password, user.passwordDigest)
+        const authed = await bcrypt.compare(req.body.password, user.passwordDigest)
         if (!!authed){
             const payload = { username: user.username, email: user.email }
             const sendToken = (err, token) => {

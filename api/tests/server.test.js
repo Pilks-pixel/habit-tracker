@@ -70,17 +70,17 @@ describe('API server', () => {
             .expect(200, done)
     })
 
-    test('creates a habit', done => {
+    // test('creates a habit', done => {
 
-    })
+    // })
 
-    test('increament habit', done {
+    // test('increament habit', done {
 
-    })
+    // })
 
-    test('delete habit', done {
+    // test('delete habit', done {
 
-    })
+    // })
 
 
 

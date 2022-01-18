@@ -1,15 +1,4 @@
-const express = require('express');
-const app = express();
-const port = 3000;
-const cors = require('cors')
-const bodyParser = require('body-parser');
-app.use(cors());
-app.use(express.json());
-app.use(bodyParser.json());
+const app = require('./server');
 
-app.get('/', (req, res) => {
-    res.send('Hello World')
-});
-
-
-app.listen(port, () => console.log(`running at http://localhost:${port}`));
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Express just departed from port ${port}!`))

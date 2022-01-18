@@ -1,5 +1,8 @@
 const express = require('express');
 const app = express();
+
+
+
 const cors = require('cors');
 
 app.use(cors('*'));
@@ -13,5 +16,6 @@ app.use('/users', userRoutes);
 
 
 app.get('/', (req, res) => res.json({ message: 'Welcome' }));
+
 
 module.exports = app;

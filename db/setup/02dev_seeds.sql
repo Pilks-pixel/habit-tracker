@@ -1,9 +1,9 @@
-INSERT INTO users (user_id, user_name, email, user_password) 
+INSERT INTO users (id, username, email, password_digest) 
 VALUES
     (1,'John Adams','john@gmail.com','xxxx'),
     (2,'Douglas Parker','douglas@gmail.com','xxxx');
 
-INSERT INTO habits  (habit_id, habit_name) 
+INSERT INTO habits  (id, habit_name) 
 VALUES
     (1, 'Drink Water'),
     (2, 'Exercise'),
@@ -11,7 +11,7 @@ VALUES
     (4, 'Wake up early'),
     (5, 'Meditate');
 
-INSERT INTO habit_plans  (hplan_id, user_id, habit_id, begin_date,
+INSERT INTO habit_plans  (id, user_id, habit_id, begin_date,
     end_date, frequency ) 
 VALUES
     (1, 1, 1, '2022-01-10','2099-01-01', 2),
@@ -20,7 +20,7 @@ VALUES
     (4, 2, 4, '2022-01-10','2099-01-01', 1),
     (5, 2, 5, '2022-01-10','2099-01-01', 3);
 
-INSERT INTO habit_facts (hfact_id, hplan_id, hfact_timestamp) 
+INSERT INTO habit_facts (id, hplan_id, hfact_timestamp) 
 VALUES
     (1, 1, '2022-01-11 15:10:25-07'),
     (2, 1, '2022-01-11 19:10:25-07'),

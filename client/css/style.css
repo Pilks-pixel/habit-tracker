@@ -6,10 +6,10 @@ body {
 /* nav */
 
 /* Control the left side */
-   .left {
-    left: 0;
+   /* .left {
+    left: 0; */
     /* margin-left: 5%; */
-  }
+  /* } */
   
   /* Control the right side */
   /* .right {
@@ -121,6 +121,142 @@ body {
     padding-right: 100px;
 }
 
-main {
-    background: url('./helthyBackground.png') repeat;
+.dashboard {
+    /* background: url('./helthyBackground.png') repeat; */
+    margin-left: 7%;
+    margin-right: 7%;
+}
+
+/* dashboard */
+.dash-row {
+    margin-top: 30px;
+}
+
+.label-dash {
+    color: #316879;
+    /* margin-top: 30px; */
+}
+.dash-date {
+    text-align: right;
+    margin-right: 0;
+}
+
+.inputHabitsDate {
+    width: 180px;
+    align-items:center;
+    margin-right: 0;
+}
+.habit {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    width: 250px;
+    height: 320px;
+    border: 2px #64ADA6 solid ;
+    border-radius: 10%;
+    background-color: #E6EDEE;
+    padding: 20px;
+    box-shadow: 2px 3px #AEC4C2;
+}
+
+.labelTrackNew {
+    font-size: 30px;
+    color: #F47A60;
+    font-weight: bold;
+}
+
+.form-control {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.inputStartHabit{
+    font-size: 16px;
+}
+
+.input-group-text {
+    border: 0 solid !important;
+}
+.input-group-text.S {
+    padding-left: 0;
+}
+
+.input-group-text.T {
+    padding-left: 0;
+}
+
+.title-row {
+    height: 120px;
+}
+
+.btnTrackHabit {
+    background-color: #316879;
+    border-radius: 10px;
+    border: none;
+}
+
+.habit-name {
+    font-size: 30px;
+    color: #316879;
+    font-weight: bold;
+    line-height: 30px;
+}
+.anchor-streak {
+    font-style: italic;
+    color: #64ADA6;
+}
+
+.habit-freq {
+    font-size: 20px;
+}
+
+.shell {
+    height: 30px;
+    width: 200px;
+    border-radius: 13px;
+    border: 1px #316879 solid ;
+    background: linear-gradient(to right, #F9D2CB, #F47A60);
+    overflow: hidden;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .bar {
+    background:white;
+    height: 30px;
+    float: right;
+  }
+
+  .footer {
+    position: relative;
+    /* margin: 20px 20px 0 0; */
+    float: left;
+    font-size: 1.4em;
+    margin: 18px 0 0 3px;
+  }
+
+  .delCross {
+    position: absolute;
+    top: -260px;
+    right: -210px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    color: #6c757d;
+    transition: color .2s ease;
+}
+.delCross:hover {
+      color: #333;
+    }
+.btnFact {
+  position: absolute;
+  bottom: -40px;
+  right: -200px;
+  height: 48px;
+  border-radius: 50%;
+  /* margin: 13px 0 0 0; */
+  padding: 0 14px;
+  cursor: pointer;
+  background-color: #316879;
+  color: #E6EDEE;
+  border: none;
 }

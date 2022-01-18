@@ -1,5 +1,6 @@
 GET http://localhost:3000/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwiZW1haWwiOiJIZWxsb0Bsb2wiLCJpYXQiOjE2NDI1MDA3NTIsImV4cCI6MTY0MjUwMDgxMn0.5zpd3z0JDTMJyxWnaTuOvR3uGZqhaAR4CnbFNIJx16k
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwiZW1haWwiOiJIZWxsb0Bsb2wiLCJpYXQiOjE2NDI1MDI0NTIsImV4cCI6MTY0MjUwMjUxMn0.3iE9rJHyZjpRhBVnQvrxtY8ct6Vbrg9HO-GwzBMYFoI
+
 ###
 
 POST http://localhost:3000/auth/register

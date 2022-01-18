@@ -1,15 +1,17 @@
 async function requestLogin(e){
     e.preventDefault();
     try {
-        const options = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
-        }
-        const r = await fetch(`http://localhost:3000/auth/login`, options)
-        const data = await r.json()
-        if (!data.success) { throw new Error('Login not authorised'); }
-        login(data.token);
+        // ***uncoment when auth ready
+        // const options = {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(Object.fromEntries(new FormData(e.target)))
+        // }
+        // const r = await fetch(`http://localhost:3000/auth/login`, options)
+        // const data = await r.json()
+        // if (!data.success) { throw new Error('Login not authorised'); }
+        // login(data.token);
+        window.location.hash = '#dashboard';
     } catch (err) {
         console.warn(err);
     }

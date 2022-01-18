@@ -1,16 +1,14 @@
 
 function renderHomepage(){
-    // const logo = document.createElement('img');
-    // logo.id = 'logo';
-    // logo.src = 'https://res.cloudinary.com/getfutureproof/image/upload/v1595323029/futureproof_logotype_withBleed_huge_kl2rol.png';
-    // logo.alt = 'futureproof logo'
-    // main.appendChild(logo);
-
-    const sectionHome = document.createElement('row');
+    const sectionHome = document.createElement('div');
+    sectionHome.classList.add('row');
     main.appendChild(sectionHome);
+    
     // left side with img
-    const leftSide = document.createElement('col');
-    leftSide.classList.add('split');
+    const leftSide = document.createElement('div');
+    leftSide.classList.add('col');
+    // leftSide.classList.add('col-sm-6');
+    // leftSide.classList.add('col-xs-12');
     leftSide.classList.add('left');
     sectionHome.appendChild(leftSide);
 
@@ -23,9 +21,12 @@ function renderHomepage(){
     leftSideDiv.appendChild(lifeStyleImg);
 
     // right side
-    const rightSide = document.createElement('col');
-    rightSide.classList.add('split');
+    const rightSide = document.createElement('div');
+    rightSide.classList.add('col');
+    // rightSide.classList.add('col-sm-6');
+    // rightSide.classList.add('col-xs-12');
     rightSide.classList.add('right');
+    
     sectionHome.appendChild(rightSide);
 
     const appTitle = document.createElement('h1');
@@ -33,14 +34,17 @@ function renderHomepage(){
     appTitle.innerText = 'Habit Tracker'
     rightSide.appendChild(appTitle);
 
+    const switchFrame = document.createElement('div');
+    switchFrame.classList.add('switch-frame');
+    rightSide.appendChild(switchFrame);
+
     // switch
     const switchDiv = document.createElement('div');
     switchDiv.classList.add('switch-button');
     switchDiv.innerHTML = '<input class="switch-button-checkbox" type="checkbox" name="switch"></input> <label class="switch-button-label" for=""><span class="switch-button-label-span">Login</span></label>';
-    rightSide.appendChild(switchDiv);
+    switchFrame.appendChild(switchDiv);
    
     const rightSideDiv = document.createElement('div');
-    rightSideDiv.classList.add('centered');
     rightSideDiv.classList.add('auth');
     rightSide.appendChild(rightSideDiv);
 
@@ -51,8 +55,6 @@ function renderHomepage(){
 function renderLoginForm() {
     // renderHomepage();
     document.querySelector('.auth').innerHTML = '';
-    // rightSideDiv.classList.add('centered');
-    // rightSideDiv.classList.add('auth');
     const fields = [
         { tag: 'input', attributes: { type: 'email', name: 'email', placeholder: 'Email' } },
         { tag: 'input', attributes: { type: 'password', name: 'password', placeholder: 'Password' } },
@@ -96,36 +98,67 @@ function renderRegisterForm() {
     document.querySelector('.auth').appendChild(form);
 }
 
-async function renderFeed() {
-    const feed = document.createElement('section');
-    feed.id = 'feed';
-    const posts = await getAllPosts();
-    if(posts.err){return}
-    const renderPost = postData => {
-        const post = document.createElement('div');
-        post.className = 'post';
-        const user = document.createElement('h3');
-        const body = document.createElement('p');
-        user.textContent = postData.username;
-        body.textContent = postData.body;
-        post.appendChild(user);
-        post.appendChild(body);
-        feed.appendChild(post);
-    }
-    posts.forEach(renderPost);
-    main.appendChild(feed);
+async function renderDashboard() {
+    // const feed = document.createElement('section');
+    // feed.id = 'feed';
+    // const posts = await getAllPosts();
+    // if(posts.err){return}
+    // const renderPost = postData => {
+    //     const post = document.createElement('div');
+    //     post.className = 'post';
+    //     const user = document.createElement('h3');
+    //     const body = document.createElement('p');
+    //     user.textContent = postData.username;
+    //     body.textContent = postData.body;
+    //     post.appendChild(user);
+    //     post.appendChild(body);
+    //     feed.appendChild(post);
+    // }
+    // posts.forEach(renderPost);
+    // main.appendChild(feed);
+    main.innerHTML = '';
+    renderNavbar();
+
 }
 
-function renderProfile() {
-    const profile = document.createElement('section');
-    const greeting = document.createElement('h3');
-    greeting.textContent = `Hi there, ${localStorage.getItem('username')}!`;
-    profile.appendChild(greeting);
-    main.appendChild(profile);
-}
+// function render404() {
+//     const error = document.createElement('h2');
+//     error.textContent = "Oops, we can't find that page sorry!";
+//     main.appendChild(error);
+// }
+function renderNavbar() {
+    nav.innerHTML = '';
 
-function render404() {
-    const error = document.createElement('h2');
-    error.textContent = "Oops, we can't find that page sorry!";
-    main.appendChild(error);
+    const navFrame = document.createElement('div');
+    navFrame.classList.add('navbar');
+    navFrame.classList.add('navbar-expand-lg');
+    navFrame.classList.add('navbar-dark');
+    nav.appendChild(navFrame);
+
+    const navTitle = document.createElement('div');
+    navTitle.classList.add('navbar-brand');
+    navTitle.innerText = 'Habit Tracker';
+    navFrame.appendChild(navTitle);
+
+    // const navGreeting = document.createElement('span');
+    // navGreeting.classList.add('navbar-text');
+    // navGreeting.innerText = 'Keep going, User!';
+    // navFrame.appendChild(navGreeting);
+
+    const navList = document.createElement('ul');
+    navList.classList.add('navbar-nav');
+    navList.classList.add('ms-auto');
+    navFrame.appendChild(navList);
+
+    const navGreeting = document.createElement('li');
+    navGreeting.classList.add('navbar-text');
+    navGreeting.innerText = 'Keep going, User!';
+    navList.appendChild(navGreeting);
+
+    const navLogOut = document.createElement('li');
+    navLogOut.classList.add('nav-item');
+    navLogOut.innerHTML = '<a class="nav-link active" aria-current="page" href="#">Log Out</a>';
+    navList.appendChild(navLogOut);
+
+
 }

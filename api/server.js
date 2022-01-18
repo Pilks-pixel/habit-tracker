@@ -1,17 +1,21 @@
 const express = require('express');
 const app = express();
 
-const cors = require('cors')
-const bodyParser = require('body-parser');
-app.use(cors());
+
+
+const cors = require('cors');
+
+app.use(cors('*'));
 app.use(express.json());
-app.use(bodyParser.json());
 
-app.get('/', (req, res) => {
-    res.send('Hello World')
-});
+const authRoutes = require('./controllers/auth');
+const userRoutes = require('./controllers/users');
+
+app.use('/auth', authRoutes);
+app.use('/users', userRoutes);
 
 
+app.get('/', (req, res) => res.json({ message: 'Welcome' }));
 
 
 module.exports = app;

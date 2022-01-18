@@ -4,7 +4,7 @@ CREATE TABLE users (
     id serial PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
-    password_digest VARCHAR(500) NOT NULL UNIQUE
+    password_digest VARCHAR(500) NOT NULL 
 );
 
 DROP TABLE IF EXISTS habits;
@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS habit_facts;
 CREATE TABLE habit_facts (
     id serial PRIMARY KEY,
     hplan_id int NOT NULL,
-    hfact_timestamp datetime);
+    hfact_timestamp timestamp);
 
 
 

@@ -4,7 +4,7 @@ CREATE TABLE users (
     user_id serial PRIMARY KEY,
     user_name varchar(100) NOT NULL,
     email varchar(100),
-    user_password varchar(100) NOT NULL
+    password_digest varchar(500) NOT NULL
 );
 
 DROP TABLE IF EXISTS habits;

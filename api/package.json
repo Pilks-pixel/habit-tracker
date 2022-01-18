@@ -4,7 +4,8 @@
     "description": "",
     "main": "api/index.js",
     "scripts": {
-        "start": "nodemon index.js"
+        "start": "nodemon index.js",
+        "test": "jest --watchAll"
     },
     "repository": {
         "type": "git",
@@ -31,6 +32,8 @@
     },
     "devDependencies": {
         "dotenv": "^14.1.0",
-        "nodemon": "^2.0.15"
+        "nodemon": "^2.0.15",
+        "jest": "^27.4.7",
+        "supertest": "^6.2.1"  
     }
 }

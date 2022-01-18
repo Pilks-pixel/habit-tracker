@@ -2,7 +2,7 @@ version: '3'
 services:
   api:
     image: 'node:12.18.4'
-    working_dir: /server
+    working_dir: /code
     ports:
       - 3000:3000
     environment: 
@@ -16,8 +16,8 @@ services:
       - db
     volumes:
       - type: bind
-        source: ./api
-        target: /server
+        source: ./
+        target: /code
     command: bash -c "npm install && npm start"
   db:
     image: 'postgres:11.1'
@@ -25,7 +25,7 @@ services:
       - "5432"
     volumes:
       - "dbdata:/var/lib/postgresql/data"
-      - "./db/setup/:/docker-entrypoint-initdb.d/:ro"
+      - "./db:/docker-entrypoint-initdb.d/:ro"
     environment: 
       - POSTGRES_DB=habittr
       - POSTGRES_USER=htracker

@@ -7,10 +7,10 @@ services:
       - 3000:3000
     environment: 
       - PORT=3000
-      - PGUSER=htracker
+      - PGUSER=habitat
       - PGHOST=db
-      - PGPASSWORD=htracker_password
-      - PGDATABASE=htracker
+      - PGPASSWORD=habitat_password
+      - PGDATABASE=habitat
       - PGPORT=5432
     depends_on: 
       - db
@@ -27,8 +27,8 @@ services:
       - "dbdata:/var/lib/postgresql/data"
       - "./db/setup/:/docker-entrypoint-initdb.d/:ro"
     environment: 
-      - POSTGRES_DB=habittr
-      - POSTGRES_USER=htracker
-      - POSTGRES_PASSWORD=habittr_password
+      - POSTGRES_DB=habitat
+      - POSTGRES_USER=habitat
+      - POSTGRES_PASSWORD=habitat_password
 volumes:
   dbdata:

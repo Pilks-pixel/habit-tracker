@@ -7,6 +7,7 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
+    "id":3,
     "username" : "Hello",
     "email" : "Hello@lol",
     "password" : "Hello"
@@ -17,7 +18,7 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "username" : "Hello",
+    
     "email" : "Hello@lol",
     "password" : "Hello"
 }

@@ -140,7 +140,7 @@ function renderNavbar() {
 
     const navGreeting = document.createElement('li');
     navGreeting.classList.add('navbar-text');
-    navGreeting.innerText = 'Keep going, User!';
+    navGreeting.innerText = `Keep going, ${localStorage.username}!`;
     navList.appendChild(navGreeting);
 
     const navLogOut = document.createElement('li');

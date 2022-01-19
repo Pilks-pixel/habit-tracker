@@ -71,7 +71,7 @@ class Habit_Plan {
     static update(habitData){
         return new Promise (async (resolve, reject) =>{
             try{
-                const {habit_id,end_date} =  habitData;
+                const {habit_id, end_date} =  habitData;
                 
                 let habit = await Habit.findById(habit_id);
                 let result = await db.query(`UPDATE habit_plans 

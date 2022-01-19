@@ -49,7 +49,7 @@ function updateContent(){
     console.log("updateContent ",path)
     console.log("currentUser",currentUser())
     if (privateRoutes.includes(path) && !currentUser()){
-        window.location.hash = '#dashboard';
+        window.location.hash = '#';
         console.log("updateContent change hash", window.location.hash)
         updateMain(path)
     } else if (!privateRoutes.includes(path) && currentUser()) {

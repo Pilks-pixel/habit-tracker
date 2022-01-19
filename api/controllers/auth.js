@@ -23,22 +23,34 @@ router.post('/register', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const user = await User.findByEmail(req.body.email)
+        console.log('user', user)
         if(!user){ throw new Error('No user with this email') }
         const authed = await bcrypt.compare(req.body.password, user.passwordDigest)
-        if (!!authed){
+        console.log(authed, req.body.password)
+        // ginger coment
+        // if (!!authed){
+        //     const payload = { username: user.username, email: user.email }
+        //     const sendToken = (err, token) => {
+        //         if(err){ throw new Error('Error in token generation') }
+        //         res.status(200).json({
+        //             success: true,
+        //             token: "Bearer " + token,
+        //         });
+        //     } 
+        //     jwt.sign(payload, process.env.SECRET, { expiresIn: 60 }, sendToken);
+        // } else {
+        //     throw new Error('User could not be authenticated')  
+        // }
+        // ginger add
+        if (authed){
             const payload = { username: user.username, email: user.email }
-            const sendToken = (err, token) => {
-                if(err){ throw new Error('Error in token generation') }
-                res.status(200).json({
-                    success: true,
-                    token: "Bearer " + token,
-                });
-            }
-            jwt.sign(payload, process.env.SECRET, { expiresIn: 60 }, sendToken);
-        } else {
-            throw new Error('User could not be authenticated')  
+            console.log(payload,process.env.TOKEN_SECRET )
+            const token = jwt.sign(payload, process.env.TOKEN_SECRET);
+            console.log('token') 
+            res.json({authorization: token});
+            // jwt.sign(payload, process.env.SECRET, { expiresIn: 60 }, sendToken); 
         }
-    } catch (err) {
+        } catch (err) {
         res.status(401).json({ err });
     }
 })

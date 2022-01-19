@@ -259,8 +259,9 @@ function showTrackNewHabitForm () {
 
 async function showAllHabits() {
     // uncomment for data from server
-    // const response = await fetch('http://localhost:3000/habits');  
+    // const response = await getAllHabits();  
     // const habits  = await response.json();
+    const habits = await getAllHabits(); 
     console.log(habits)
     appendHabits(habits);
     // habits.forEach(post => getComments(habit.id))

@@ -261,7 +261,7 @@ async function showAllHabits() {
     // uncomment for data from server
     // const response = await getAllHabits();  
     // const habits  = await response.json();
-    const habits = await getAllHabits(); 
+    // const habits = await getAllHabits(); 
     console.log(habits)
     appendHabits(habits);
     // habits.forEach(post => getComments(habit.id))

@@ -16,8 +16,8 @@ async function requestLogin(e){
         const data = await r.json()
         console.log(data);
         if (data.err) { throw new Error('Login not authorised'); }
-        // login(data.token);
-        login(data)
+        login(data.token);
+        // login(data)
     } catch (err) {
         console.warn(err);
     }
@@ -47,20 +47,20 @@ async function requestRegistration(e) {
     }
 }
 
-// function login(token){
-//     const user = jwt_decode(token);
-//     localStorage.setItem("token", token);
-//     localStorage.setItem("username", user.username);
-//     localStorage.setItem("userEmail", user.email);
-//     window.location.hash = '#dashboard';
-// }
-
-// temporary until token will be ready
-function login(data) {
-    localStorage.setItem("username", data.user);
-    console.log('local username',localStorage.getItem('username'))
+function login(token){
+    const user = jwt_decode(token);
+    localStorage.setItem("token", token);
+    localStorage.setItem("username", user.username);
+    localStorage.setItem("userEmail", user.email);
     window.location.hash = '#dashboard';
 }
+
+// temporary until token will be ready
+// function login(data) {
+//     localStorage.setItem("username", data.user);
+//     console.log('local username',localStorage.getItem('username'))
+//     window.location.hash = '#dashboard';
+// }
 
 function logout(){
     localStorage.clear();

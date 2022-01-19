@@ -22,3 +22,38 @@ Content-Type: application/json
     "email" : "Hello@lol",
     "password" : "Hello"
 }
+
+###
+GET http://localhost:3000/habits
+
+###
+
+GET http://localhost:3000/habits/1
+
+###
+GET http://localhost:3000/habitplans/1
+
+###
+
+POST http://localhost:3000/habitplans
+
+{
+"user_id":"John Adams",
+"habit_id":"Drink Water",
+"begin_date":"2022-01-01",
+"end_date":"2022-01-30",
+"frequency":2
+}
+####
+GET http://localhost:3000/habitfacts/1
+
+###
+
+POST http://localhost:3000/habitfacts
+    
+    {
+    "id":1,
+    "hfactTimestamp": "2022-01-11 15:10:25-07",
+    "hPlanId":1
+    
+    }

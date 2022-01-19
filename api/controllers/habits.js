@@ -5,7 +5,7 @@ const { verifyToken } = require('../middleware/auth');
 
 const Habit = require('../models/habit');
 
-router.get('/', verifyToken, async (req, res) => {
+router.get('/', async (req, res) => {
     try {
         const habits = await Habit.all
         res.json(habits)

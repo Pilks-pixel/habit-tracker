@@ -115,23 +115,6 @@ function renderRegisterForm() {
 }
 
 async function renderMain() {
-    // const feed = document.createElement('section');
-    // feed.id = 'feed';
-    // const posts = await getAllPosts();
-    // if(posts.err){return}
-    // const renderPost = postData => {
-    //     const post = document.createElement('div');
-    //     post.className = 'post';
-    //     const user = document.createElement('h3');
-    //     const body = document.createElement('p');
-    //     user.textContent = postData.username;
-    //     body.textContent = postData.body;
-    //     post.appendChild(user);
-    //     post.appendChild(body);
-    //     feed.appendChild(post);
-    // }
-    // posts.forEach(renderPost);
-    // main.appendChild(feed);
     renderNavbar();
     renderDashboard();
 }
@@ -175,7 +158,6 @@ function renderDashboard() {
 }
 
 function showTrackNewHabitForm () {
-    // const dashboard = document.querySelector('#dashboard');
     const dashboard = document.createElement('section');
     dashboard.classList.add('dashboard');
     main.appendChild(dashboard);
@@ -230,11 +212,15 @@ function showTrackNewHabitForm () {
     formTrackNew.setAttribute('id', "trackNewHabit");
     newHabitFrame.appendChild(formTrackNew);
 
-    const newHabitName = document.createElement('div');
-    newHabitName.classList.add('input-group');
-    newHabitName.classList.add('mb-3');
-    newHabitName.innerHTML = '<input type="text" name = habitName class="form-control inputHabitName" placeholder="habit name" aria-label="HabitName" aria-describedby="basic-addon1">';
-    formTrackNew.appendChild(newHabitName);
+    // new habit name - text  
+    // const newHabitName = document.createElement('div');
+    // newHabitName.classList.add('input-group');
+    // newHabitName.classList.add('mb-3');
+    // newHabitName.innerHTML = '<input type="text" name = habitName class="form-control inputHabitName" placeholder="habit name" aria-label="HabitName" aria-describedby="basic-addon1">';
+    // formTrackNew.appendChild(newHabitName);
+
+    // new habit name - select box
+    createSelectHabitName(formTrackNew);
 
     const newBeginHabit = document.createElement('div');
     newBeginHabit.classList.add('input-group');
@@ -257,21 +243,38 @@ function showTrackNewHabitForm () {
 
 }
 
+async function createSelectHabitName(formTrackNew) {
+    const newHabitName = document.createElement('div');
+    newHabitName.classList.add('input-group');
+    newHabitName.classList.add('mb-3');
+    newHabitName.innerHTML = '<select name = habitName class="form-select inputHabitName" placeholder="habit name" aria-label="HabitName">';
+    formTrackNew.appendChild(newHabitName);
+    // 
+    const habits = await getAllHabits();
+    console.log(habits);
+    habits.forEach(habit => {
+        const newHabitOption = document.createElement('option');
+        const newHabitOptionText = document.createTextNode(habit.habitName);
+        newHabitOption.appendChild(newHabitOptionText);
+        newHabitOption.setAttribute('value','Option Value');
+        newHabitName.querySelector('.inputHabitName').appendChild(newHabitOption)
+    })
+   
+}
+
 async function showAllHabits() {
     // uncomment for data from server
-    // const response = await getAllHabits();  
-    // const habits  = await response.json();
-    // const habits = await getAllHabits(); 
-    console.log(habits)
-    appendHabits(habits);
+    const userHabits = await getAllUserHabits(); 
+    console.log(userHabits)
+    appendUserHabits(userHabits);
     // habits.forEach(post => getComments(habit.id))
 }
 
-function appendHabits(habits) {
-     habits.forEach(habit => showHabit(habit));
+function appendUserHabits(habits) {
+     habits.forEach(habit => showUserHabit(habit));
   };
 
-function showHabit(habit) {
+function showUserHabit(habit) {
     console.log('habit')
     const newHabitCard = document.createElement('div');
     newHabitCard.classList.add('col-md-4');
@@ -296,7 +299,7 @@ function showHabit(habit) {
     const newHabitName = document.createElement('div');
     newHabitName.classList.add('title-row');
     // newHabitName.innerText = habit.habit_name;
-    newHabitName.innerHTML = `<label class="habit-name">${habit.habit_name}</label> <p><a class="anchor-streak" href="#streak">streak info >> </a></p>`
+    newHabitName.innerHTML = `<label class="habit-name">${habit.habit}</label> <p><a class="anchor-streak" href="#streak">streak info >> </a></p>`
     newHabitFrame.appendChild(newHabitName);  
 
     const newHabitFreq = document.createElement('div');

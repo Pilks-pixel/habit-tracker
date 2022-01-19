@@ -16,8 +16,8 @@ async function requestLogin(e){
         const data = await r.json()
         console.log("login with data",data);
         if (data.err) { throw new Error('Login not authorised'); }
-        // login(data.token);
         login(data.authorization);
+        // temporarily until token will be ready
         // login(data)
     } catch (err) {
         console.warn(err);
@@ -50,12 +50,8 @@ async function requestRegistration(e) {
 
 function login(token){
     const user = jwt_decode(token);
-    // let payload = JSON.parse(window.atob(token.split('.')[1])); 
     console.log("token", token)
     console.log("user", user)
-    // let payload2 = JSON.parse(window.atob(token)); 
-    // const t = jwtDecode(token);
-    // console.log("payload1", t)
     localStorage.setItem("token", token);
     localStorage.setItem("username", user.username);
     localStorage.setItem("userEmail", user.email);
@@ -63,7 +59,7 @@ function login(token){
     window.location.hash = '#dashboard';
 }
 
-// temporary until token will be ready
+// temporarily until token will be ready
 // function login(data) {
 //     localStorage.setItem("username", data.user);
 //     console.log('local username',localStorage.getItem('username'))
@@ -72,7 +68,6 @@ function login(token){
 
 function logout(){
     localStorage.clear();
-    // console.log('Clear!')
     window.location.hash = '#';
 }
 
@@ -80,13 +75,3 @@ function currentUser(){
     const username = localStorage.getItem('username')
     return username;
 }
-
-function jwtDecode(t) {
-    let token = {};
-    token.raw = t;
-    token.header = JSON.parse(window.atob(t.split('.')[0]));
-    console.log("header", token.header)
-    token.payload = JSON.parse(window.atob(t.split('.')[1]));
-    console.log("payload", token.payload)
-    return (token)
-  }

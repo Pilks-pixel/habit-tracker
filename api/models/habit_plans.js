@@ -15,6 +15,7 @@ class Habit_Plan {
         // ginger there is not need habit.id
         // this.habit = {habit_name: data.habit_name, path: `habits/${data.habit_id}`}
         this.habit = data.habit_name
+        
     }
     // ginger remove get - static get all(user)
     static all(user){

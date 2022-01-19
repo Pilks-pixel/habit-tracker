@@ -158,6 +158,8 @@ function renderDashboard() {
 }
 
 function showTrackNewHabitForm () {
+    const today = new Date().toISOString().substring(0, 10);
+
     const dashboard = document.createElement('section');
     dashboard.classList.add('dashboard');
     main.appendChild(dashboard);
@@ -178,7 +180,7 @@ function showTrackNewHabitForm () {
     // dashboardDate.classList.add('justify-content-center');
     dashboardDate.innerHTML = '<input type="date" class="form-control inputHabitsDate" name="inputHabitsDate">'
     dashboardGrid.append(dashboardDate);
-    dashboardDate.valueAsDate = new Date();
+    dashboardDate.querySelector('.inputHabitsDate').setAttribute('value', today);
 
     const divContainer= document.createElement('div');
     divContainer.classList.add('container');
@@ -227,11 +229,13 @@ function showTrackNewHabitForm () {
     newBeginHabit.classList.add('mb-3');
     newBeginHabit.innerHTML = '<span class="input-group-text S" id="basic-addon2">start</span> <input type="date" class="form-control inputStartHabit" name="inputStartHabit" aria-describedby="basic-addon2">';
     formTrackNew.appendChild(newBeginHabit);
+    // today = new Date().toISOString().substring(0, 10);
+    document.querySelector('.inputStartHabit').setAttribute('value', today);
 
     const newFreqHabit = document.createElement('div');
     newFreqHabit.classList.add('input-group');
     newFreqHabit.classList.add('mb-3');
-    newFreqHabit.innerHTML = '<input type="number" class="form-control inputFreqHabit" name="inputFreqHabit" aria-describedby="basic-addon3"><span class="input-group-text" id="basic-addon3">time(s) per day</span> ';
+    newFreqHabit.innerHTML = '<input type="number" class="form-control inputFreqHabit" value="1", min="1" max="100" name="inputFreqHabit" aria-describedby="basic-addon3"><span class="input-group-text" id="basic-addon3">time(s) per day</span> ';
     formTrackNew.appendChild(newFreqHabit);
 
     const newBtnTrackHabit = document.createElement('div');
@@ -259,7 +263,6 @@ async function createSelectHabitName(formTrackNew) {
         newHabitOption.setAttribute('value','Option Value');
         newHabitName.querySelector('.inputHabitName').appendChild(newHabitOption)
     })
-   
 }
 
 async function showAllHabits() {
@@ -354,4 +357,3 @@ function renderStreak(hplan_id) {
 //     error.textContent = "Oops, we can't find that page sorry!";
 //     main.appendChild(error);
 // }
-

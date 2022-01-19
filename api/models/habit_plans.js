@@ -46,14 +46,13 @@ class Habit_Plan {
     static create(habitData){
         return new Promise (async (resolve, reject) => {
             try {
-                const {user_id,habit_id,begin_date,end_date,frequency} = habitData;
+                const {id,habit_name,begin_date,end_date,frequency} = habitData;
                 
-                let user = await User.findById(user_id);
-                let habit = await Habit.findById(habit_id);
+            
                 let result = await db.query(`INSERT INTO habit_plans
                     (user_id, habit_id, begin_date, end_date, frequency)
                     VALUES ($1, $2, $3, $4, $5)
-                    RETURNING id;`, [ user.id,habit.id,begin_date,end_date,frequency]); resolve (result.rows[0]);
+                    RETURNING id;`, [ id,habit_name,begin_date,end_date,frequency]); resolve (result.rows[0]);
                     
             } catch (err) {
                 reject('habit could not be created');
@@ -64,12 +63,13 @@ class Habit_Plan {
     static update(habitData){
         return new Promise (async (resolve, reject) =>{
             try{
-                const {habit_id,end_date} =  habitData;
+                const {id,end_date} =  habitData;
                 
-                let habit = await Habit.findById(habit_id);
+               
                 let result = await db.query(`UPDATE habit_plans 
                                              SET end_date = $1
-                                             WHERE id = $2;` [habit.id,end_date]); resolve (result.rows[0]);
+                                             WHERE id = $2;` [end_date,id]); resolve (result.rows[0]);
+                                             console.log("done")
             }catch(err){
                 reject('Update failed')
             }

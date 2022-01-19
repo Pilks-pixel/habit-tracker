@@ -152,12 +152,14 @@ function renderNavbar() {
 }
 
 function renderDashboard() {
-    main.innerHTML = '';
-    showTrackNewHabitForm();
-    showAllHabits();
+    main.innerHTML = ''
+    showDashboardTitle();
+    // showTrackNewHabitForm();
+    // showAllHabits();
+    showDashboard();
 }
 
-function showTrackNewHabitForm () {
+function showDashboardTitle() {
     const today = new Date().toISOString().substring(0, 10);
 
     const dashboard = document.createElement('section');
@@ -181,16 +183,56 @@ function showTrackNewHabitForm () {
     dashboardDate.innerHTML = '<input type="date" class="form-control inputHabitsDate" name="inputHabitsDate">'
     dashboardGrid.append(dashboardDate);
     dashboardDate.querySelector('.inputHabitsDate').setAttribute('value', today);
-
+    dashboardDate.querySelector('.inputHabitsDate').addEventListener('change', showDashboard);
+    
     const divContainer= document.createElement('div');
     divContainer.classList.add('container');
-    dashboard.appendChild(divContainer);
+    divContainer.classList.add('habit-cont');
+    document.querySelector('.dashboard').appendChild(divContainer);
+}
+
+function showDashboard() {
+    document.querySelector('.habit-cont').innerHTML = ''
+    showTrackNewHabitForm();
+    showAllHabits();
+}
+    
+function showTrackNewHabitForm () {
+    const today = new Date().toISOString().substring(0, 10);
+
+    // const dashboard = document.createElement('section');
+    // dashboard.classList.add('dashboard');
+    // main.appendChild(dashboard);
+
+    // const dashboardGrid = document.createElement('div');
+    // dashboardGrid.classList.add('dash-row');
+    // dashboardGrid.classList.add('row');
+    // dashboardGrid.classList.add('justify-content-between');
+    // dashboard.appendChild(dashboardGrid);
+    
+    // const dashboardTitle = document.createElement('div');
+    // dashboardTitle.classList.add('col-md-9');
+    // dashboardTitle.innerHTML = '<h1 class="label-dash">Dashboard</h1>'
+    // dashboardGrid.append(dashboardTitle);
+
+    // const dashboardDate = document.createElement('div');
+    // dashboardDate.classList.add('col-md-3');
+    // // dashboardDate.classList.add('justify-content-center');
+    // dashboardDate.innerHTML = '<input type="date" class="form-control inputHabitsDate" name="inputHabitsDate">'
+    // dashboardGrid.append(dashboardDate);
+    // dashboardDate.querySelector('.inputHabitsDate').setAttribute('value', today);
+    // dashboardDate.querySelector('.inputHabitsDate').addEventListener('change', renderDashboard);
+
+    // const divContainer= document.createElement('div');
+    // divContainer.classList.add('container');
+    // divContainer.classList.add('habit-cont');
+    // document.querySelector('.dashboard').appendChild(divContainer);
 
     const habitGrid = document.createElement('div');
     habitGrid.classList.add('allHabits');
     habitGrid.classList.add('row');
     habitGrid.classList.add('justify-content-between');
-    divContainer.appendChild(habitGrid);
+    document.querySelector('.habit-cont') .appendChild(habitGrid);
 
     const newHabitCard = document.createElement('div');
     newHabitCard.classList.add('col-md-4');

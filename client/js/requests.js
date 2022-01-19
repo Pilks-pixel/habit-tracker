@@ -8,9 +8,6 @@ async function getAllUserHabits(){
         }
         
         let url = new URL('http://localhost:3000/habitplans');
-        // url.search = new URLSearchParams({
-        //     date: document.querySelector('.inputHabitsDate').value
-        // });
         url.searchParams.append('date',document.querySelector('.inputHabitsDate').value);
         console.log(url)
         const response = await fetch(url, options);

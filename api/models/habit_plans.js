@@ -47,7 +47,7 @@ class Habit_Plan {
                                                 habit_plans.begin_date <= $2
                                                 AND
                                                 habit_plans.end_date >= $2;`,[user.email, date]);
-                console.log("db: ",habitData )
+                // console.log("db: ",habitData )
                 let habits = habitData.rows.map(b => new Habit_Plan(b));
                 resolve (habits);
             } catch (err) {

@@ -5,7 +5,10 @@
     "main": "api/index.js",
     "scripts": {
         "start": "nodemon index.js",
-        "test": "jest --watchAll"
+        "test": "jest --watchAll",
+        "unitTests": "jest --testPathPattern=/unit/ --watchAll --verbose",
+        "coverage": "jest --coverage"
+
     },
     "repository": {
         "type": "git",

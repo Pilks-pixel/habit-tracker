@@ -12,7 +12,7 @@ class Habit_Plan {
         //this.user = {id: data.id, path: `users/${data.user_id}`}
         this.habit = {id: data.id, path: `habits/${data.habit_id}`}
     }
-    static get all(id){
+    static getall(id){
         return new Promise (async (resolve, reject) => {
             try {
                 let habitData = await db.query(`SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency

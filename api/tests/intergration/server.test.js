@@ -1,9 +1,9 @@
 const { test } = require("@jest/globals");
 const request = require("supertest");
-const server = require("../server");
+const server = require("../../server");
 const express = require('express');
 const jwt = require('jsonwebtoken');
-const { response } = require("../server");
+const { response } = require("../../server");
 
 describe('API server', () => {
     let api 

@@ -48,13 +48,19 @@ class Habit_Plan {
         return new Promise (async (resolve, reject) => {
             try {
                 const {user_id,habit_id,begin_date,end_date,frequency} = habitData;
-                
-                let user = await User.findById(user_id);
-                let habit = await Habit.findById(habit_id);
+                console.log("Create",user_id,habit_id,begin_date,end_date,frequency)
+                // let user = await User.findById(user_id);
+                // let habit = await Habit.findById(habit_id);
+                // let result = await db.query(`INSERT INTO habit_plans
+                //     (user_id, habit_id, begin_date, end_date, frequency)
+                //     VALUES ($1, $2, $3, $4, $5)
+                //     RETURNING id;`, [ user.id,habit.id,begin_date,end_date,frequency]); 
                 let result = await db.query(`INSERT INTO habit_plans
                     (user_id, habit_id, begin_date, end_date, frequency)
                     VALUES ($1, $2, $3, $4, $5)
-                    RETURNING id;`, [ user.id,habit.id,begin_date,end_date,frequency]); resolve (result.rows[0]);
+                    RETURNING *;`, [ user_id,habit_id,begin_date,end_date,frequency]); 
+                
+                resolve (result.rows[0]);
                     
             } catch (err) {
                 reject('habit could not be created');

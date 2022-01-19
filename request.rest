@@ -28,6 +28,6 @@ authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwi
 ###
 GET http://localhost:3000/habitplans
 Content-Type: application/json
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwiZW1haWwiOiJIZWxsb0Bsb2wiLCJpYXQiOjE2NDI2MDgwMzZ9.CZD_kABzxOblAd9HEFZ6IJW2cKuOp_EWM4iMczUcWws
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwiZW1haWwiOiJIZWxsb0Bsb2wiLCJ1c2VySUQiOjMsImlhdCI6MTY0MjYyNDY5Mn0.I7urov_O62KCcXFkMe4KntlSUSFD7CfC9-ihxukZOYc
 
 # INSERT INTO habit_plans VALUES(6, 3,1, '2022-01-10','9999-12-31', 2);

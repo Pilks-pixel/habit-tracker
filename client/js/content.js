@@ -244,6 +244,7 @@ function showTrackNewHabitForm () {
     // newBtnTrackHabit.classList.add('mb-3');
     newBtnTrackHabit.innerHTML = '<button class="btn btn-dark btnTrackHabit" type="submit">Track habit</button>';
     formTrackNew.appendChild(newBtnTrackHabit);  
+    document.querySelector('.btnTrackHabit').addEventListener('click', trackNewHabit);
 
 }
 
@@ -260,7 +261,7 @@ async function createSelectHabitName(formTrackNew) {
         const newHabitOption = document.createElement('option');
         const newHabitOptionText = document.createTextNode(habit.habitName);
         newHabitOption.appendChild(newHabitOptionText);
-        newHabitOption.setAttribute('value','Option Value');
+        newHabitOption.setAttribute('value', habit.id);
         newHabitName.querySelector('.inputHabitName').appendChild(newHabitOption)
     })
 }
@@ -352,8 +353,7 @@ function renderStreak(hplan_id) {
     console.log("streak info ",hplan_id);
 }
 
-// function render404() {
-//     const error = document.createElement('h2');
-//     error.textContent = "Oops, we can't find that page sorry!";
-//     main.appendChild(error);
-// }
+function trackNewHabit(e) {
+    postNewHabit(e);
+    window.location.reload(); 
+}

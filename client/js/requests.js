@@ -39,3 +39,35 @@ async function getAllHabits(){
         console.warn(err);
     }
 }
+
+async function postNewHabit(e){
+    e.preventDefault();
+    try {
+        const habitData = {
+            user_id: localStorage.userID,
+            habit_id: document.querySelector('.inputHabitName').value,
+            begin_date: document.querySelector('.inputStartHabit').value,
+            end_date: "9999-12-31",
+            frequency: document.querySelector('.inputFreqHabit').value
+        };
+        console.log("post data", habitData );
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(habitData),
+            headers: {
+                'authorization': localStorage.getItem('token'),
+                'Content-Type': "application/json"
+            }
+        }
+        console.log(options)
+        const response = await fetch('http://localhost:3000/habitplans', options);
+        const data = await response.json();
+        if(data.err){
+            console.warn(data.err);
+            logout();
+        }
+        return data;
+    } catch (err) {
+        console.warn(err);
+    }
+}

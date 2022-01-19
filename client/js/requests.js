@@ -6,8 +6,14 @@ async function getAllUserHabits(){
                 'Content-Type': "application/json"
             }
         }
-        console.log(options)
-        const response = await fetch('http://localhost:3000/habitplans', options);
+        
+        let url = new URL('http://localhost:3000/habitplans');
+        // url.search = new URLSearchParams({
+        //     date: document.querySelector('.inputHabitsDate').value
+        // });
+        url.searchParams.append('date',document.querySelector('.inputHabitsDate').value);
+        console.log(url)
+        const response = await fetch(url, options);
         const data = await response.json();
         if(data.err){
             console.warn(data.err);

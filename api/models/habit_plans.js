@@ -17,9 +17,10 @@ class Habit_Plan {
         this.habit = data.habit_name
         
     }
-    // ginger remove get - static get all(user)
-    static all(user){
+    // ginger remove get - static get all(user), add query parameter date
+    static all(user, date){
         return new Promise (async (resolve, reject) => {
+            console.log("param.date",date)
             try {
                 // ginger replace
                 // let habitData = await db.query(`SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency 
@@ -28,13 +29,24 @@ class Habit_Plan {
                 //                                 ON habit_plans.habit_id = habits.id
                 //                                 WHERE habit_plans.user_id = $1;`,[id]);
                 console.log("user", user.email);
+                // let habitData = await db.query(`SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id, habits.id as habit_id, habit_plans.id as id
+                //                                 FROM habit_plans
+                //                                 INNER JOIN habits
+                //                                 ON habit_plans.habit_id = habits.id
+                //                                 INNER JOIN users
+                //                                 ON habit_plans.user_id = users.id
+                //                                 WHERE users.email= $1;`,[user.email]);
                 let habitData = await db.query(`SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id, habits.id as habit_id, habit_plans.id as id
                                                 FROM habit_plans
                                                 INNER JOIN habits
                                                 ON habit_plans.habit_id = habits.id
                                                 INNER JOIN users
                                                 ON habit_plans.user_id = users.id
-                                                WHERE users.email= $1;`,[user.email]);
+                                                WHERE users.email= $1
+                                                AND
+                                                habit_plans.begin_date <= $2
+                                                AND
+                                                habit_plans.end_date >= $2;`,[user.email, date]);
                 console.log("db: ",habitData )
                 let habits = habitData.rows.map(b => new Habit_Plan(b));
                 resolve (habits);

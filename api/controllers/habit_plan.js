@@ -7,8 +7,8 @@ const Habit_Plan = require('../models/habit_plans');
 
 router.get('/', verifyToken, async (req, res) => {
     try {
-        // ginger add parameter req.user 
-        const habitPlan = await Habit_Plan.all(req.user)
+        // ginger add parameter req.user and req.query
+        const habitPlan = await Habit_Plan.all(req.user, req.query.date)
         res.json(habitPlan)
     } catch (err) {
         res.status(500).send({ err })

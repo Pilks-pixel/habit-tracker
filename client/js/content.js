@@ -344,8 +344,6 @@ function showUserHabit(habit) {
     btnAddFact.innerHTML = '<i class="fa fa-plus"></i>';
     footerHabit.appendChild(btnAddFact);
 
-
-
 }
 
 function renderStreak(hplan_id) {

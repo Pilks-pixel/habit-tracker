@@ -22,6 +22,9 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
+        console.log(req.body.email)
+        console.log(req.body.passwordDigest)
+        console.log(req.body.username)
         const user = await User.findByEmail(req.body.email)
         console.log('user', user)
         if(!user){ throw new Error('No user with this email') }

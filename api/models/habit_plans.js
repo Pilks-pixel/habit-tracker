@@ -16,6 +16,7 @@ class Habit_Plan {
         // this.habit = {habit_name: data.habit_name, path: `habits/${data.habit_id}`}
         this.habit = data.habit_name
     }
+  
     // ginger remove get - static get all(user)
     static all(user){
         return new Promise (async (resolve, reject) => {

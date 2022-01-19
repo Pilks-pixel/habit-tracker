@@ -5,16 +5,17 @@ const { verifyToken } = require('../middleware/auth');
 
 const Habit_Plan = require('../models/habit_plans');
 
-router.get('/', async (req, res) => {
+router.get('/', verifyToken, async (req, res) => {
     try {
-        const habitPlan = await Habit_Plan.all
+        // ginger add parameter req.user 
+        const habitPlan = await Habit_Plan.all(req.user)
         res.json(habitPlan)
     } catch (err) {
         res.status(500).send({ err })
     }
 })
 
-router.post('/', async (req,res) => {
+router.post('/', verifyToken, async (req,res) => {
     try {
         const habitPlan = await Habit_Plan.create(req.body);
         res.status(201).json(habitPlan)
@@ -23,7 +24,7 @@ router.post('/', async (req,res) => {
     }
 } )
 
-router.patch('/', async (req,res) => {
+router.patch('/', verifyToken, async (req,res) => {
     try {
         const habitPlan = await Habit_Plan.update(req.body);
         res.status(201).json(habitPlan)

@@ -5,10 +5,16 @@ const { verifyToken } = require('../middleware/auth');
 
 const Habit_Plan = require('../models/habit_plans');
 
+
 router.get('/', verifyToken, async (req, res) => {
     try {
         // ginger add parameter req.user 
         const habitPlan = await Habit_Plan.all(req.user)
+
+router.get('/:id', async (req, res) => {
+    try {
+        const habitPlan = await Habit_Plan.findById(req.params.id)
+
         res.json(habitPlan)
     } catch (err) {
         res.status(500).send({ err })

@@ -24,8 +24,7 @@ Content-Type: application/json
 ###
 GET http://localhost:3000/habits
 Content-Type: application/json
-authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwiZW1haWwiOiJIZWxsb0Bsb2wiLCJpYXQiOjE2NDI1NTk5MDZ9.T8w0TNlRWW9JSRUerQXwma2Nb9DGQ2VLTRR1dH4IaMo
-
+authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwiZW1haWwiOiJIZWxsb0Bsb2wiLCJpYXQiOjE2NDI1ODc2ODh9.gb-gTLKuKZi1Wx_SvDYBEsUdu1tCy_WCC77sbUM0V0I
 ###
 GET http://localhost:3000/habitplans
 Content-Type: application/json

@@ -3,6 +3,7 @@ services:
   api:
     image: 'node:12.18.4'
     working_dir: /server
+
     ports:
       - 3000:3000
     environment: 
@@ -11,6 +12,7 @@ services:
       - PGHOST=db
       - PGPASSWORD=habitat_password
       - PGDATABASE=habitat
+
       - PGPORT=5432
     depends_on: 
       - db

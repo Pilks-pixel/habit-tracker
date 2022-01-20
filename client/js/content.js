@@ -505,6 +505,8 @@ function showStreak(id) {
     const streakTBody = document.createElement('tbody');
     streakTable.appendChild(streakTBody);
 
+    const bodyTr = document.createElement('tr');
+    streakTHead.appendChild(bodyTr);
 
 //     <table class="table">
 //   <thead>

@@ -15,12 +15,12 @@ class Habit_Plan {
         // this.habit = {id: data.id, path: `habits/${data.habit_id}`}
         // ginger there is not need habit.id
         // this.habit = {habit_name: data.habit_name, path: `habits/${data.habit_id}`}
-        this.habit = data.habit_name
-        
+        this.habit = data.habit_name;
+        this.count = data.habit_count;
     }
 
     // ginger remove get - static get all(user), add query parameter date
-    static all(user, date){
+    static all(date, user ){
         return new Promise (async (resolve, reject) => {
             console.log("param.date",date)
             try {
@@ -38,21 +38,40 @@ class Habit_Plan {
                 //                                 INNER JOIN users
                 //                                 ON habit_plans.user_id = users.id
                 //                                 WHERE users.email= $1;`,[user.email]);
-                let habitData = await db.query(`SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id, habits.id as habit_id, habit_plans.id as id
+
+
+                // SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id, habits.id as habit_id, habit_plans.id as id
+//                                                 FROM habit_plans
+//                                                 INNER JOIN habits
+//                                                 ON habit_plans.habit_id = habits.id
+//                                                 INNER JOIN users
+//                                                 ON habit_plans.user_id = users.id
+
+//                                                 WHERE users.email= $1
+//                                                 AND
+//                                                 habit_plans.begin_date <= $2
+//                                                 AND
+//                                                 habit_plans.end_date >= $2;`,[user.email, date]);
+
+                let habitData = await db.query(`SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date,
+                                                habit_plans.frequency, habit_plans.user_id,
+                                                habits.id as habit_id, habit_plans.id as id,
+                                                    (SELECT COUNT(*) habit_count
+                                                    FROM habit_facts
+                                                    WHERE habit_facts.hplan_id = habit_plans.id
+                                                    AND DATE(habit_facts.hfact_timestamp) = $1 )
                                                 FROM habit_plans
                                                 INNER JOIN habits
                                                 ON habit_plans.habit_id = habits.id
                                                 INNER JOIN users
                                                 ON habit_plans.user_id = users.id
-
-                                                WHERE users.email= $1
+                                                WHERE users.email= $2
                                                 AND
-                                                habit_plans.begin_date <= $2
+                                                habit_plans.begin_date <= $1
                                                 AND
-                                                habit_plans.end_date >= $2;`,[user.email, date]);
+                                                habit_plans.end_date >= $1;`,[date, user.email]);
+                
                 // console.log("db: ",habitData )
-
-                                               
                 
 
                 let habits = habitData.rows.map(b => new Habit_Plan(b));
@@ -63,11 +82,19 @@ class Habit_Plan {
         });
     };
 
-    static findById(id){
+    static findById(id,habitData){
         return new Promise (async (resolve, reject) => {
             try {
-                let habitData = await db.query('SELECT * FROM habit_plans WHERE id = $1;', [ id ]);
-                let habitPlan = new Habit_Plan(habitData.rows[0]);
+
+                const {start_date,end_date} = habitData
+
+                let result = await db.query(`SELECT DATE(hfact_timestamp), count(*) AS streak_count
+                                                FROM habit_facts
+                                                WHERE hplan_id = $1
+                                                AND DATE(hfact_timestamp) BETWEEN $2 AND $3
+                                                GROUP BY DATE(hfact_timestamp)
+                                                ORDER BY DATE(hfact_timestamp);`, [ id, start_date,end_date ]);
+                let habitPlan = new Habit_Plan(result.rows[0]);
                 resolve(habitPlan);
             } catch (err) {
                 reject('habit not found');
@@ -118,3 +145,5 @@ class Habit_Plan {
 }
 
 module.exports = Habit_Plan;
+
+

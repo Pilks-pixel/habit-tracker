@@ -18,8 +18,8 @@ DROP TABLE IF EXISTS habit_plans;
 
 CREATE TABLE habit_plans (
     id serial PRIMARY KEY,
-    user_id int NOT NULL,
-    habit_id int NOT NULL,
+    user_id int NOT NULL REFERENCES users(id),
+    habit_id int NOT NULL REFERENCES habits(id),
     begin_date date NOT NULL DEFAULT CURRENT_DATE,
     end_date date NOT NULL DEFAULT '2099-01-01',
     frequency int
@@ -29,7 +29,7 @@ DROP TABLE IF EXISTS habit_facts;
 
 CREATE TABLE habit_facts (
     id serial PRIMARY KEY,
-    hplan_id int NOT NULL,
+    hplan_id int NOT NULL REFERENCES habit_plans(id),
     hfact_timestamp timestamp);
 
 

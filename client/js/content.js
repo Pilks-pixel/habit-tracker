@@ -115,23 +115,6 @@ function renderRegisterForm() {
 }
 
 async function renderMain() {
-    // const feed = document.createElement('section');
-    // feed.id = 'feed';
-    // const posts = await getAllPosts();
-    // if(posts.err){return}
-    // const renderPost = postData => {
-    //     const post = document.createElement('div');
-    //     post.className = 'post';
-    //     const user = document.createElement('h3');
-    //     const body = document.createElement('p');
-    //     user.textContent = postData.username;
-    //     body.textContent = postData.body;
-    //     post.appendChild(user);
-    //     post.appendChild(body);
-    //     feed.appendChild(post);
-    // }
-    // posts.forEach(renderPost);
-    // main.appendChild(feed);
     renderNavbar();
     renderDashboard();
 }
@@ -157,7 +140,7 @@ function renderNavbar() {
 
     const navGreeting = document.createElement('li');
     navGreeting.classList.add('navbar-text');
-    navGreeting.innerText = 'Keep going, User!';
+    navGreeting.innerText = `Keep going, ${localStorage.username}!`;
     navList.appendChild(navGreeting);
 
     const navLogOut = document.createElement('li');
@@ -169,13 +152,16 @@ function renderNavbar() {
 }
 
 function renderDashboard() {
-    main.innerHTML = '';
-    showTrackNewHabitForm();
-    showAllHabits();
+    main.innerHTML = ''
+    showDashboardTitle();
+    // showTrackNewHabitForm();
+    // showAllHabits();
+    showDashboard();
 }
 
-function showTrackNewHabitForm () {
-    // const dashboard = document.querySelector('#dashboard');
+function showDashboardTitle() {
+    const today = new Date().toISOString().substring(0, 10);
+
     const dashboard = document.createElement('section');
     dashboard.classList.add('dashboard');
     main.appendChild(dashboard);
@@ -196,17 +182,29 @@ function showTrackNewHabitForm () {
     // dashboardDate.classList.add('justify-content-center');
     dashboardDate.innerHTML = '<input type="date" class="form-control inputHabitsDate" name="inputHabitsDate">'
     dashboardGrid.append(dashboardDate);
-    dashboardDate.valueAsDate = new Date();
-
+    dashboardDate.querySelector('.inputHabitsDate').setAttribute('value', today);
+    dashboardDate.querySelector('.inputHabitsDate').addEventListener('change', showDashboard);
+    
     const divContainer= document.createElement('div');
     divContainer.classList.add('container');
-    dashboard.appendChild(divContainer);
+    divContainer.classList.add('habit-cont');
+    document.querySelector('.dashboard').appendChild(divContainer);
+}
+
+function showDashboard() {
+    document.querySelector('.habit-cont').innerHTML = ''
+    showTrackNewHabitForm();
+    showAllHabits();
+}
+    
+function showTrackNewHabitForm () {
+    const today = new Date().toISOString().substring(0, 10);
 
     const habitGrid = document.createElement('div');
     habitGrid.classList.add('allHabits');
     habitGrid.classList.add('row');
     habitGrid.classList.add('justify-content-between');
-    divContainer.appendChild(habitGrid);
+    document.querySelector('.habit-cont') .appendChild(habitGrid);
 
     const newHabitCard = document.createElement('div');
     newHabitCard.classList.add('col-md-4');
@@ -230,22 +228,28 @@ function showTrackNewHabitForm () {
     formTrackNew.setAttribute('id', "trackNewHabit");
     newHabitFrame.appendChild(formTrackNew);
 
-    const newHabitName = document.createElement('div');
-    newHabitName.classList.add('input-group');
-    newHabitName.classList.add('mb-3');
-    newHabitName.innerHTML = '<input type="text" name = habitName class="form-control inputHabitName" placeholder="habit name" aria-label="HabitName" aria-describedby="basic-addon1">';
-    formTrackNew.appendChild(newHabitName);
+    // new habit name - text  
+    // const newHabitName = document.createElement('div');
+    // newHabitName.classList.add('input-group');
+    // newHabitName.classList.add('mb-3');
+    // newHabitName.innerHTML = '<input type="text" name = habitName class="form-control inputHabitName" placeholder="habit name" aria-label="HabitName" aria-describedby="basic-addon1">';
+    // formTrackNew.appendChild(newHabitName);
+
+    // new habit name - select box
+    createSelectHabitName(formTrackNew);
 
     const newBeginHabit = document.createElement('div');
     newBeginHabit.classList.add('input-group');
     newBeginHabit.classList.add('mb-3');
     newBeginHabit.innerHTML = '<span class="input-group-text S" id="basic-addon2">start</span> <input type="date" class="form-control inputStartHabit" name="inputStartHabit" aria-describedby="basic-addon2">';
     formTrackNew.appendChild(newBeginHabit);
+    // today = new Date().toISOString().substring(0, 10);
+    document.querySelector('.inputStartHabit').setAttribute('value', today);
 
     const newFreqHabit = document.createElement('div');
     newFreqHabit.classList.add('input-group');
     newFreqHabit.classList.add('mb-3');
-    newFreqHabit.innerHTML = '<input type="number" class="form-control inputFreqHabit" name="inputFreqHabit" aria-describedby="basic-addon3"><span class="input-group-text" id="basic-addon3">time(s) per day</span> ';
+    newFreqHabit.innerHTML = '<input type="number" class="form-control inputFreqHabit" value="1", min="1" max="100" name="inputFreqHabit" aria-describedby="basic-addon3"><span class="input-group-text" id="basic-addon3">time(s) per day</span> ';
     formTrackNew.appendChild(newFreqHabit);
 
     const newBtnTrackHabit = document.createElement('div');
@@ -254,31 +258,53 @@ function showTrackNewHabitForm () {
     // newBtnTrackHabit.classList.add('mb-3');
     newBtnTrackHabit.innerHTML = '<button class="btn btn-dark btnTrackHabit" type="submit">Track habit</button>';
     formTrackNew.appendChild(newBtnTrackHabit);  
+    document.querySelector('.btnTrackHabit').addEventListener('click', trackNewHabit);
 
+}
+
+async function createSelectHabitName(formTrackNew) {
+    const newHabitName = document.createElement('div');
+    newHabitName.classList.add('input-group');
+    newHabitName.classList.add('mb-3');
+    newHabitName.innerHTML = '<select name = habitName class="form-select inputHabitName" placeholder="habit name" aria-label="HabitName">';
+    formTrackNew.appendChild(newHabitName);
+    // 
+    const habits = await getAllHabits();
+    console.log(habits);
+    habits.forEach(habit => {
+        const newHabitOption = document.createElement('option');
+        const newHabitOptionText = document.createTextNode(habit.habitName);
+        newHabitOption.appendChild(newHabitOptionText);
+        newHabitOption.setAttribute('value', habit.id);
+        newHabitName.querySelector('.inputHabitName').appendChild(newHabitOption)
+    })
 }
 
 async function showAllHabits() {
     // uncomment for data from server
-    // const response = await getAllHabits();  
-    // const habits  = await response.json();
-    // const habits = await getAllHabits(); 
-    console.log(habits)
-    appendHabits(habits);
+    const userHabits = await getAllUserHabits(); 
+    console.log(userHabits)
+    appendUserHabits(userHabits);
     // habits.forEach(post => getComments(habit.id))
 }
 
-function appendHabits(habits) {
-     habits.forEach(habit => showHabit(habit));
+function appendUserHabits(habits) {
+     habits.forEach(habit => showUserHabit(habit));
   };
 
-function showHabit(habit) {
-    console.log('habit')
+function showUserHabit(habit) {
+    console.log('habit', habit)
+
+    // get fact data fo plan.id
+    // const habitFact = getHabitFacts(habit.id);
+    const habitFact = 0;
+
     const newHabitCard = document.createElement('div');
     newHabitCard.classList.add('col-md-4');
     newHabitCard.classList.add('col-sm-6');
     newHabitCard.classList.add('col-xs-12')
     newHabitCard.classList.add('habit');
-    newHabitCard.setAttribute('data-id', habit.hplan_id);
+    newHabitCard.setAttribute('data-id', habit.id);
     document.querySelector('.allHabits').append(newHabitCard);
 
     const newHabitFrame = document.createElement('div');
@@ -296,7 +322,7 @@ function showHabit(habit) {
     const newHabitName = document.createElement('div');
     newHabitName.classList.add('title-row');
     // newHabitName.innerText = habit.habit_name;
-    newHabitName.innerHTML = `<label class="habit-name">${habit.habit_name}</label> <p><a class="anchor-streak" href="#streak">streak info >> </a></p>`
+    newHabitName.innerHTML = `<label class="habit-name">${habit.habit}</label> <p><a class="anchor-streak" href="#streak">streak info >> </a></p>`
     newHabitFrame.appendChild(newHabitName);  
 
     const newHabitFreq = document.createElement('div');
@@ -315,17 +341,21 @@ function showHabit(habit) {
     newShell.classList.add('shell');
     newBarRow.appendChild(newShell);
 
-    console.log(`width:${habit.hfact / habit.frequency*100}%`);
+    console.log(`width:${habitFact / habit.frequency*100}%`);
     const newBar = document.createElement('div');
     newBar.classList.add('bar');
-    newBar.setAttribute('style', `width:${100 - habit.hfact / habit.frequency*100}%`);
+    newBar.setAttribute('style', `width:${100 - habitFact / habit.frequency*100}%`);
     newShell.appendChild(newBar);
     // progress bar end    
 
     // footer
+    const footerHabit0 = document.createElement('div');
+    footerHabit0.classList.add('footer0');
+    newHabitFrame.appendChild(footerHabit0);
+
     const footerHabit = document.createElement('div');
     footerHabit.classList.add('footer');
-    newHabitFrame.appendChild(footerHabit);
+    footerHabit0.appendChild(footerHabit);
 
     const delSpan = document.createElement('span');
     delSpan.classList.add('delCross');
@@ -334,9 +364,27 @@ function showHabit(habit) {
 
     const btnAddFact = document.createElement('button');
     btnAddFact.classList.add('btnFact');
-    btnAddFact.innerHTML = '<i class="fa fa-plus"></i>';
+    btnAddFact.innerHTML = `<i class="fa fa-plus" data-id=${habit.id}></i>`;
+    btnAddFact.setAttribute('data-id', habit.id);
     footerHabit.appendChild(btnAddFact);
+    // click event - create habit fact for habit plan
+    btnAddFact.addEventListener('click', createHabitFact);
 
+    const newHabitFact = document.createElement('label');
+    newHabitFact.classList.add('habit-fact');
+    newHabitFact.setAttribute('data-id', habit.id);
+    if(habitFact > 0) {
+        newHabitFact.innerHTML = habitFact;
+    } else {
+        newHabitFact.innerHTML = '0';
+    };
+    footerHabit0.appendChild(newHabitFact);
+
+    const newHabitPlan = document.createElement('label');
+    newHabitPlan.classList.add('habit-plan');
+    newHabitPlan.setAttribute('data-id', habit.id);
+    newHabitPlan.innerHTML = `/ ${habit.frequency}`;
+    footerHabit0.appendChild(newHabitPlan);
 
 
 }
@@ -346,9 +394,32 @@ function renderStreak(hplan_id) {
     console.log("streak info ",hplan_id);
 }
 
-// function render404() {
-//     const error = document.createElement('h2');
-//     error.textContent = "Oops, we can't find that page sorry!";
-//     main.appendChild(error);
-// }
+function trackNewHabit(e) {
+    postNewHabit(e);
+    window.location.reload(); 
+}
 
+function createHabitFact(e) {
+    
+    id = e.target.getAttribute('data-id')
+    const habitFact = document.querySelector(`.habit-fact[data-id='${id}']`);
+    const habitPlan = document.querySelector(`.habit-plan[data-id='${id}']`);
+    
+    if (habitPlan.innerHTML != "Complete!") {
+        postHabitFact(e);
+
+        let fact = habitFact.innerHTML;
+        let plan = habitPlan.innerText[2];
+        console.log(plan)
+
+        if (Number(fact)+1  == Number(plan)) {
+            habitFact.innerHTML = '';
+            habitPlan.innerHTML = "Complete!"
+        } else {
+            fact = Number(habitFact.innerHTML) + 1;
+            habitFact.innerHTML = fact;
+            console.log("fact",fact);
+        }
+    }
+       
+}

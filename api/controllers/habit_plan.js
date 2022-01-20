@@ -8,8 +8,13 @@ const Habit_Plan = require('../models/habit_plans');
 
 router.get('/', verifyToken, async (req, res) => {
     try {
-        // ginger add parameter req.user 
-        const habitPlan = await Habit_Plan.all(req.user)
+        // ginger add parameter req.user and req.query
+        const habitPlan = await Habit_Plan.all(req.user, req.query.date)
+        res.json(habitPlan)
+    } catch (err) {
+        res.status(500).send({ err })
+    }
+})
 
 router.get('/:id', async (req, res) => {
     try {
@@ -21,7 +26,7 @@ router.get('/:id', async (req, res) => {
     }
 })
 
-router.post('/', async (req,res) => {
+router.post('/', verifyToken, async (req,res) => {
     try {
         const habitPlan = await Habit_Plan.create(req.body);
         res.status(201).json(habitPlan)
@@ -30,7 +35,7 @@ router.post('/', async (req,res) => {
     }
 } )
 
-router.patch('/', async (req,res) => {
+router.patch('/update', verifyToken, async (req,res) => {
     try {
         const habitPlan = await Habit_Plan.update(req.body);
         res.status(201).json(habitPlan)

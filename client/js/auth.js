@@ -14,9 +14,10 @@ async function requestLogin(e){
         console.log(options)
         const r = await fetch(`http://localhost:3000/auth/login`, options)
         const data = await r.json()
-        console.log(data);
+        console.log("login with data",data);
         if (data.err) { throw new Error('Login not authorised'); }
-        login(data.token);
+        login(data.authorization);
+        // temporarily until token will be ready
         // login(data)
     } catch (err) {
         console.warn(err);
@@ -49,13 +50,17 @@ async function requestRegistration(e) {
 
 function login(token){
     const user = jwt_decode(token);
+    console.log("token", token)
+    console.log("user", user)
     localStorage.setItem("token", token);
     localStorage.setItem("username", user.username);
     localStorage.setItem("userEmail", user.email);
+    localStorage.setItem("userID", user.userID);
+    console.log(localStorage)
     window.location.hash = '#dashboard';
 }
 
-// temporary until token will be ready
+// temporarily until token will be ready
 // function login(data) {
 //     localStorage.setItem("username", data.user);
 //     console.log('local username',localStorage.getItem('username'))
@@ -64,7 +69,6 @@ function login(token){
 
 function logout(){
     localStorage.clear();
-    // console.log('Clear!')
     window.location.hash = '#';
 }
 

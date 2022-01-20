@@ -348,12 +348,11 @@ function showUserHabit(habit) {
     const newStreakLink = document.createElement('a');
     newStreakLink.classList.add('anchor-streak');
     newStreakLink.innerHTML = `see streak >>`
-    newStreakLink.setAttribute('data-id', habit.id);
+    newStreakLink.setAttribute('data-id', [habit.id, habit.frequency]);
     newPStreak.appendChild(newStreakLink);
 
     // streak info click event
     newStreakLink.addEventListener('click', renderStreak);
-    
     
 
     const newHabitFreq = document.createElement('div');
@@ -463,15 +462,18 @@ function createHabitFact(e) {
 
 function renderStreak(e) {
     // window.location.hash = '#streak';
-    const id = e.target.getAttribute('data-id')
-    console.log("streak info for ", e.target, id );
+    const habitPlanData = e.target.getAttribute('data-id')
+    const id = habitPlanData[0];
+    const freq = habitPlanData[1];
+
+    console.log("streak info for ", e.target, id, freq);
 
     main.innerHTML = '';
-    showStreakTitle(id);
-    showStreak(id);
+    showStreakTitle(id, freq);
+    showStreak(id, freq);
 };
 
-function showStreakTitle(id) {
+function showStreakTitle(id, freq) {
     const today = new Date().toISOString().substring(0, 10);
 
     const streak = document.createElement('section');
@@ -507,10 +509,10 @@ function showStreakTitle(id) {
     streakContainer.appendChild(divContainer);
 }
 
-async function showStreak(id) {
+async function showStreak(id, freq) {
     
     habitFacts = await getHabitFacts(id);
-    console.log(habitFacts);
+    console.log(id, habitFacts);
     // appendUserHabits(habitFacts);
 
     const streakCard = document.createElement('div');

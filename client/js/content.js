@@ -1,4 +1,4 @@
-const { deepStrictEqual } = require("assert");
+// const { deepStrictEqual } = require("assert");
 
 const habits = [
     {
@@ -357,10 +357,10 @@ function showUserHabit(habit) {
     newShell.classList.add('shell');
     newBarRow.appendChild(newShell);
 
-    console.log(`width:${habitFact / habit.frequency*100}%`);
+    console.log(`width:${habit.count / habit.frequency*100}%`);
     const newBar = document.createElement('div');
     newBar.classList.add('bar');
-    newBar.setAttribute('style', `width:${100 - habitFact / habit.frequency*100}%`);
+    newBar.setAttribute('style', `width:${100 - habit.count / habit.frequency*100}%`);
     newShell.appendChild(newBar);
     // progress bar end    
 
@@ -389,18 +389,26 @@ function showUserHabit(habit) {
     const newHabitFact = document.createElement('label');
     newHabitFact.classList.add('habit-fact');
     newHabitFact.setAttribute('data-id', habit.id);
-    if(habitFact > 0) {
-        newHabitFact.innerHTML = habitFact;
-    } else {
-        newHabitFact.innerHTML = '0';
-    };
     footerHabit0.appendChild(newHabitFact);
 
     const newHabitPlan = document.createElement('label');
     newHabitPlan.classList.add('habit-plan');
     newHabitPlan.setAttribute('data-id', habit.id);
-    newHabitPlan.innerHTML = `/ ${habit.frequency}`;
+    // newHabitPlan.innerHTML = `/ ${habit.frequency}`;
     footerHabit0.appendChild(newHabitPlan);
+
+    if(habit.count > 0) {
+        if (habit.count >= habit.frequency) {
+            newHabitFact.innerHTML = '';
+            newHabitPlan.innerHTML = 'Complete!';  
+        } else {
+            newHabitFact.innerHTML = habit.count;
+            newHabitPlan.innerHTML = `/ ${habit.frequency}`;
+        }
+    } else {
+        newHabitFact.innerHTML = '0';
+        newHabitPlan.innerHTML = `/ ${habit.frequency}`;
+    };
 }
 
 function trackNewHabit(e) {

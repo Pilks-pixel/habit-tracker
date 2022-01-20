@@ -74,3 +74,36 @@ async function postNewHabit(e){
         console.warn(err);
     }
 }
+
+async function postHabitFact(e){
+    e.preventDefault();
+    // hplan_id = ;
+    console.log(e.target)
+    try {
+        const factData = {
+            habit_id: e.target.getAttribute('data-id'),
+            };
+        console.log("post fact", factData );
+        const options = {
+            method: 'POST',
+            body: JSON.stringify(factData),
+            headers: {
+                'authorization': localStorage.getItem('token'),
+                'Content-Type': "application/json"
+            }
+        }
+        let url = new URL('http://localhost:3000/habitfacts');
+        url.searchParams.append('date',document.querySelector('.inputHabitsDate').value);
+        console.log(options)
+        
+        const response = await fetch(url, options);
+        const data = await response.json();
+        if(data.err){
+            console.warn(data.err);
+            logout();
+        }
+        return data;
+    } catch (err) {
+        console.warn(err);
+    }
+}

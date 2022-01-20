@@ -23,8 +23,12 @@ class Habit_Facts{
     static create(hplan_id){
         return new Promise (async (resolve, reject) =>{
             try{
-                let habitplans = await Habit_Plan.findById(hplan_id);
-                let result = await db.query(`INSERT INTO habit_facts(hplan_id,hfact_timestamp) VALUES ($1,CURRENT_TIMESTAMP);`,[habitplans.id]); resolve (result.rows[0]);
+                // let habitplans = await Habit_Plan.findById(hplan_id);
+                // let result = await db.query(`INSERT INTO habit_facts(hplan_id,hfact_timestamp) VALUES ($1,CURRENT_TIMESTAMP);`,[habitplans.id]); resolve (result.rows[0]);
+                let result = await db.query(`INSERT INTO habit_facts(hplan_id,hfact_timestamp) VALUES ($1,CURRENT_TIMESTAMP);`,[hplan_id]); 
+                resolve (result.rows[0]);
+            
+            
             } catch (err) {
               reject('timestamp could not be created');
             }

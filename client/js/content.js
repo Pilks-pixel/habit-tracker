@@ -200,34 +200,6 @@ function showDashboard() {
 function showTrackNewHabitForm () {
     const today = new Date().toISOString().substring(0, 10);
 
-    // const dashboard = document.createElement('section');
-    // dashboard.classList.add('dashboard');
-    // main.appendChild(dashboard);
-
-    // const dashboardGrid = document.createElement('div');
-    // dashboardGrid.classList.add('dash-row');
-    // dashboardGrid.classList.add('row');
-    // dashboardGrid.classList.add('justify-content-between');
-    // dashboard.appendChild(dashboardGrid);
-    
-    // const dashboardTitle = document.createElement('div');
-    // dashboardTitle.classList.add('col-md-9');
-    // dashboardTitle.innerHTML = '<h1 class="label-dash">Dashboard</h1>'
-    // dashboardGrid.append(dashboardTitle);
-
-    // const dashboardDate = document.createElement('div');
-    // dashboardDate.classList.add('col-md-3');
-    // // dashboardDate.classList.add('justify-content-center');
-    // dashboardDate.innerHTML = '<input type="date" class="form-control inputHabitsDate" name="inputHabitsDate">'
-    // dashboardGrid.append(dashboardDate);
-    // dashboardDate.querySelector('.inputHabitsDate').setAttribute('value', today);
-    // dashboardDate.querySelector('.inputHabitsDate').addEventListener('change', renderDashboard);
-
-    // const divContainer= document.createElement('div');
-    // divContainer.classList.add('container');
-    // divContainer.classList.add('habit-cont');
-    // document.querySelector('.dashboard').appendChild(divContainer);
-
     const habitGrid = document.createElement('div');
     habitGrid.classList.add('allHabits');
     habitGrid.classList.add('row');
@@ -321,13 +293,13 @@ function appendUserHabits(habits) {
   };
 
 function showUserHabit(habit) {
-    console.log('habit')
+    console.log('habit', habit)
     const newHabitCard = document.createElement('div');
     newHabitCard.classList.add('col-md-4');
     newHabitCard.classList.add('col-sm-6');
     newHabitCard.classList.add('col-xs-12')
     newHabitCard.classList.add('habit');
-    newHabitCard.setAttribute('data-id', habit.hplan_id);
+    newHabitCard.setAttribute('data-id', habit.id);
     document.querySelector('.allHabits').append(newHabitCard);
 
     const newHabitFrame = document.createElement('div');
@@ -383,8 +355,11 @@ function showUserHabit(habit) {
 
     const btnAddFact = document.createElement('button');
     btnAddFact.classList.add('btnFact');
-    btnAddFact.innerHTML = '<i class="fa fa-plus"></i>';
+    btnAddFact.innerHTML = `<i class="fa fa-plus" data-id=${habit.id}></i>`;
+    btnAddFact.setAttribute('data-id', habit.id);
     footerHabit.appendChild(btnAddFact);
+    // click event - create habit fact for habit plan
+    btnAddFact.addEventListener('click', createHabitFact);
 
 }
 
@@ -396,4 +371,9 @@ function renderStreak(hplan_id) {
 function trackNewHabit(e) {
     postNewHabit(e);
     window.location.reload(); 
+}
+
+function createHabitFact(e) {
+    postHabitFact(e);
+    // to increase numbers
 }

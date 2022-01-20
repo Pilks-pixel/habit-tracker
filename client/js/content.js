@@ -480,7 +480,7 @@ async function renderStreak(e) {
 //     return habits.filter(h => {return h.id==id});
 // }
 
-function showStreakTitle(id, freq) {
+function showStreakTitle(id) {
     const today = new Date().toISOString().substring(0, 10);
 
     const streak = document.createElement('section');
@@ -516,7 +516,7 @@ function showStreakTitle(id, freq) {
     streakContainer.appendChild(divContainer);
 }
 
-async function showStreak(id, freq, name) {
+async function showStreak(id, habitData) {
     
     habitFacts = await getHabitFacts(id);
     console.log(id, habitFacts);
@@ -527,8 +527,12 @@ async function showStreak(id, freq, name) {
     document.querySelector('.streak-cont').appendChild(streakCard);
 
     const newHabitName = document.createElement('div');
-    newHabitName.innerHTML = `<h3 class="habit-name">${name}</h3>`
+    newHabitName.innerHTML = `<h3 class="habit-name">${habitData.habit}</h3>`
     streakCard.appendChild(newHabitName);
+
+    const newFreq = document.createElement('p');
+    newFreq.innerHTML = `${habitData.frequency} time(s) per day`;
+    streakCard.appendChild(newFreq);
 
     const streakTable = document.createElement('table');
     streakCard.appendChild(streakTable);

@@ -517,6 +517,14 @@ function showStreakTitle(id) {
 }
 
 async function showStreak(id, habitData) {
+    // set dates
+    let end_date = new Date(document.querySelector('.inputStreakDate').value)
+    let start_date0 = new Date(end_date);
+    start_date0.setDate(start_date0.getDate() - 6);
+    // let start_date = new Date(start_date0).toISOString().substring(0, 10);
+    let start_date = new Date(start_date0);
+    
+    // create elements
     const streakCard = document.createElement('div');
     streakCard.classList.add('streak-card');
     document.querySelector('.streak-cont').appendChild(streakCard);
@@ -538,8 +546,19 @@ async function showStreak(id, habitData) {
     const headTr = document.createElement('tr');
     streakTHead.appendChild(headTr);
 
-    habitFacts = await getHabitFacts(id);
+    const habitFacts = await getHabitFacts(id);
     console.log(id, habitFacts);
+
+    console.log(start_date, end_date);
+    const firstFactDay = new Date(habitFacts[0].date);
+
+    for (let day = start_date; day <= end_date; day.setDate(day.getDate() + 1)) {
+        console.log('dates', day, firstFactDay)
+        if (day < firstFactDay) {
+            console.log('gray!')
+            appendGray(day);
+        } 
+    }
     appendFacts(habitFacts, habitData.frequency);
 }
 
@@ -550,7 +569,8 @@ function appendFacts(fact, plan) {
 function appendFact(fact, plan) {
     const headth = document.createElement('th');
     headth.setAttribute('scope',"col");
-    headth.innerHTML = 'Day';
+    const day = nameDayOfWeek(fact.date);
+    headth.innerHTML = day;
     console.log(fact, plan)
     if (Number(fact.streak_count) < plan) {
         headth.classList.add('fact-notDone');
@@ -558,27 +578,23 @@ function appendFact(fact, plan) {
         headth.classList.add('fact-Done');
     }
     document.querySelector('tr').appendChild(headth);
+};
 
-    // const streakTBody = document.createElement('tbody');
-    // streakTable.appendChild(streakTBody);
+function appendGray(date) {
+    console.log('grayy')
+    const headth = document.createElement('th');
+    headth.setAttribute('scope',"col");
+    const day = nameDayOfWeek(date);
+    headth.innerHTML = day;
+    // console.log(fact, plan)
+    headth.classList.add('fact-grey');
+    document.querySelector('tr').appendChild(headth);
+};
 
-    // const bodyTr = document.createElement('tr');
-    // streakTHead.appendChild(bodyTr);
 
-//     <table class="table">
-//   <thead>
-//     <tr>
-//       <th scope="col">#</th>
-//       <th scope="col">First</th>
-//       <th scope="col">Last</th>
-//       <th scope="col">Handle</th>
-//     </tr>
-//   </thead>
-//   <tbody>
-//     <tr>
-//       <th scope="row">1</th>
-//       <td>Mark</td>
-//       <td>Otto</td>
-//       <td>@mdo</td>
-//     </tr>
+function nameDayOfWeek(dayF) {
+    const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const day = new Date(dayF);
+    const dayWeekN = day.getDay();
+    return days[dayWeekN];
 }

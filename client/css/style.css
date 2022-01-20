@@ -314,6 +314,7 @@ th {
     font-weight: bold;
     border: 1px #fff solid ;
     color: #E6EDEE;
+    width: 65px;
 }
 
 .fact-notDone {
@@ -322,4 +323,7 @@ th {
 
 .fact-Done {
     background-color: #316879;
+}
+.fact-grey {
+    background-color: darkgrey;
 }

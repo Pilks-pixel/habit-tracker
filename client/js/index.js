@@ -34,8 +34,8 @@ function updateMain(path) {
                 renderHomepage(); break;
             case '#dashboard':
                 renderMain(); break;
-            case '#streak':
-                renderStreak(); break;
+            // case '#streak':
+            //     renderStreak(); break;
             default:
                 // render404(); break;
                 renderHomepage(); break;

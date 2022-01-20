@@ -1,3 +1,5 @@
+const { deepStrictEqual } = require("assert");
+
 const habits = [
     {
         hplan_id: 0,
@@ -324,7 +326,6 @@ function showUserHabit(habit) {
     // newHabitFrame.setAttribute('data-id', habit.hplan_id);
     newHabitCard.append(newHabitFrame);
     
-
     // const newTitleRow = document.createElement('div')
     // newTitleRow .classList.add('row');
     // newTitleRow.classList.add('title-row');
@@ -333,8 +334,12 @@ function showUserHabit(habit) {
     const newHabitName = document.createElement('div');
     newHabitName.classList.add('title-row');
     // newHabitName.innerText = habit.habit_name;
-    newHabitName.innerHTML = `<label class="habit-name">${habit.habit}</label> <p><a class="anchor-streak" href="#streak">streak info >> </a></p>`
+    newHabitName.innerHTML = `<label class="habit-name">${habit.habit}</label> <p><a class="anchor-streak" ><i class="far fa-chart-bar"> >> </i></a></p>`
     newHabitFrame.appendChild(newHabitName);  
+    document.querySelector('.anchor-streak').setAttribute('data-id', habit.id);
+    document.querySelector('.fa-chart-bar').setAttribute('data-id', habit.id);
+    // streak info click event
+    document.querySelector('.anchor-streak').addEventListener('click', renderStreak);
 
     const newHabitFreq = document.createElement('div');
     newHabitFreq.classList.add('habit-freq');
@@ -396,13 +401,6 @@ function showUserHabit(habit) {
     newHabitPlan.setAttribute('data-id', habit.id);
     newHabitPlan.innerHTML = `/ ${habit.frequency}`;
     footerHabit0.appendChild(newHabitPlan);
-
-
-}
-
-function renderStreak(hplan_id) {
-    window.location.hash = '#streak';
-    console.log("streak info ",hplan_id);
 }
 
 function trackNewHabit(e) {
@@ -433,4 +431,95 @@ function createHabitFact(e) {
         }
     }
        
+}
+
+function renderStreak(e) {
+    // window.location.hash = '#streak';
+    const id = e.target.getAttribute('data-id')
+    console.log("streak info for ", e.target, id );
+
+    main.innerHTML = '';
+    showStreakTitle(id);
+    // showStreak(id);
+};
+
+function showStreakTitle(id) {
+    const today = new Date().toISOString().substring(0, 10);
+
+    const streak = document.createElement('section');
+    streak.classList.add('streak');
+    main.appendChild(streak);
+
+    const streakContainer = document.createElement('div');
+    streakContainer.classList.add('streak-container');
+    streak.appendChild(streakContainer);
+
+    const streakGrid = document.createElement('div');
+    streakGrid.classList.add('dash-row');
+    streakGrid.classList.add('row');
+    streakGrid.classList.add('justify-content-between');
+    streakContainer.appendChild(streakGrid);
+    
+    const streakTitle = document.createElement('div');
+    streakTitle.classList.add('col-md-9');
+    streakTitle.innerHTML = '<h1 class="label-dash">Streak Info</h1>'
+    streakGrid.append(streakTitle);
+
+    const streakDate = document.createElement('div');
+    streakDate.classList.add('col-md-3');
+    // dashboardDate.classList.add('justify-content-center');
+    streakDate.innerHTML = '<input type="date" class="form-control inputHabitsDate" name="inputHabitsDate">'
+    streakGrid.append(streakDate);
+    // streakDate.querySelector('.inputHabitsDate').setAttribute('value', today);
+    // streakDate.querySelector('.inputHabitsDate').addEventListener('change', showDashboard);
+    
+    const divContainer= document.createElement('div');
+    divContainer.classList.add('container');
+    divContainer.classList.add('streak-cont');
+    streakContainer.appendChild(divContainer);
+}
+
+function showStreak(id) {
+    const streakCard = document.createElement('div');
+    streakCard.classList.add('streak-card');
+    document.querySelector('.streak-cont').appendChild(streakCard);
+
+    const newHabitName = document.createElement('div');
+    newHabitName.innerHTML = `<h3 class="habit-name">${habit.name}</h3>`
+    streakCard.appendChild(newHabitName);
+
+    const streakTable = document.createElement('table');
+    streakCard.appendChild(streakTable);
+
+    const streakTHead = document.createElement('thead');
+    streakTable.appendChild(streakTHead);
+
+    const headTr = document.createElement('tr');
+    streakTHead.appendChild(headTr);
+
+    const headth = document.createElement('th');
+    headth.setAttribute('scope',"col");
+    headth.innerHTML = 'Mon';
+    headtr.appendChild(headTh);
+
+    const streakTBody = document.createElement('tbody');
+    streakTable.appendChild(streakTBody);
+
+
+//     <table class="table">
+//   <thead>
+//     <tr>
+//       <th scope="col">#</th>
+//       <th scope="col">First</th>
+//       <th scope="col">Last</th>
+//       <th scope="col">Handle</th>
+//     </tr>
+//   </thead>
+//   <tbody>
+//     <tr>
+//       <th scope="row">1</th>
+//       <td>Mark</td>
+//       <td>Otto</td>
+//       <td>@mdo</td>
+//     </tr>
 }

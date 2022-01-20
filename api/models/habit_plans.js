@@ -9,6 +9,7 @@ class Habit_Plan {
         this.beginDate =  data.begin_date;
         this.endDate =  data.end_date;
         this.frequency = data.frequency;
+
         //this.user = {id: data.id, path: `users/${data.user_id}`}
         // ginger replace
         // this.habit = {id: data.id, path: `habits/${data.habit_id}`}

@@ -20,6 +20,7 @@ Content-Type: application/json
     "email" : "Hello@lol",
     "password" : "Hello"
 }
+
 ###
 GET http://localhost:3000/habits
 Content-Type: application/json
@@ -31,5 +32,44 @@ Content-Type: application/json
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwiZW1haWwiOiJIZWxsb0Bsb2wiLCJ1c2VySUQiOjMsImlhdCI6MTY0MjYyNDY5Mn0.I7urov_O62KCcXFkMe4KntlSUSFD7CfC9-ihxukZOYc
 
 # INSERT INTO habit_plans VALUES(6, 3,1, '2022-01-10','9999-12-31', 2);
+<<<<<<< HEAD
 
 SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id, habits.id as habit_id, habit_plans.id as id FROM habit_plans INNER JOIN habits ON habit_plans.habit_id = habits.id INNER JOIN users ON habit_plans.user_id = users.id WHERE users.id=3 AND habit_plans.begin_date <= '2022-01-19' AND habit_plans.end_date >= '2022-01-19';
+=======
+=======
+
+###
+GET http://localhost:3000/habits
+
+###
+
+GET http://localhost:3000/habits/1
+
+###
+GET http://localhost:3000/habitplans/1
+
+###
+
+POST http://localhost:3000/habitplans
+
+{
+"user_id":"John Adams",
+"habit_id":"Drink Water",
+"begin_date":"2022-01-01",
+"end_date":"2022-01-30",
+"frequency":2
+}
+####
+GET http://localhost:3000/habitfacts/1
+
+###
+
+POST http://localhost:3000/habitfacts
+    
+    {
+    "id":1,
+    "hfactTimestamp": "2022-01-11 15:10:25-07",
+    "hPlanId":1
+    
+    }
+>>>>>>> 68b230ff73b031bcf366022be87b083b542b45be

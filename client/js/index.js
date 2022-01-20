@@ -1,5 +1,6 @@
 const nav = document.querySelector('nav');
 const main = document.querySelector('main');
+const footer = document.querySelector('footer');
 
 let togle = true;
 let path = '#';

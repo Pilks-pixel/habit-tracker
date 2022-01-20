@@ -114,7 +114,24 @@ body {
     padding-right: 10px;
 }
 
+/* footer */
+footer {
+    margin: 0 !important;
+    
+}
 
+.footer-m {
+    background-color: #316879;
+    color: #E6EDEE;
+    font-size: 1rem !important;
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    /* position: static !important; */
+}
+
+
+/* dashboard */
 .dashboard {
     background-image: url("./helthyBackgroundOpacity.png") !important;
     background-repeat: repeat;

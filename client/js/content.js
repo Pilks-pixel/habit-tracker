@@ -339,6 +339,7 @@ function showUserHabit(habit) {
 
     const newHabitName = document.createElement('label');
     newHabitName.classList.add('habit-name');
+    newHabitName.setAttribute('data-id', habit.id)
     newHabitName.innerHTML = habit.habit;
     newTitleRow.appendChild(newHabitName);  
 
@@ -348,7 +349,7 @@ function showUserHabit(habit) {
     const newStreakLink = document.createElement('a');
     newStreakLink.classList.add('anchor-streak');
     newStreakLink.innerHTML = `see streak >>`
-    newStreakLink.setAttribute('data-id', [habit.id, habit.frequency]);
+    newStreakLink.setAttribute('data-id', habit.id);
     newPStreak.appendChild(newStreakLink);
 
     // streak info click event
@@ -460,18 +461,24 @@ function createHabitFact(e) {
        
 }
 
-function renderStreak(e) {
+async function renderStreak(e) {
     // window.location.hash = '#streak';
-    const habitPlanData = e.target.getAttribute('data-id')
-    const id = habitPlanData[0];
-    const freq = habitPlanData[1];
-
-    console.log("streak info for ", e.target, id, freq);
+    const id = e.target.getAttribute('data-id')
+    
+    const userHabits = await getAllUserHabits(); 
+    // const habitData = appendHabits(userHabits,id);
+    const habitData = userHabits.filter(h => {return h.id==id});
+    
+    console.log("streak info for ", e.target, id, habitData[0] );
 
     main.innerHTML = '';
-    showStreakTitle(id, freq);
-    showStreak(id, freq);
+    showStreakTitle(id);
+    showStreak(id, habitData[0]);
 };
+
+// function appendHabits(habits,id) {
+//     return habits.filter(h => {return h.id==id});
+// }
 
 function showStreakTitle(id, freq) {
     const today = new Date().toISOString().substring(0, 10);
@@ -509,7 +516,7 @@ function showStreakTitle(id, freq) {
     streakContainer.appendChild(divContainer);
 }
 
-async function showStreak(id, freq) {
+async function showStreak(id, freq, name) {
     
     habitFacts = await getHabitFacts(id);
     console.log(id, habitFacts);
@@ -520,7 +527,7 @@ async function showStreak(id, freq) {
     document.querySelector('.streak-cont').appendChild(streakCard);
 
     const newHabitName = document.createElement('div');
-    // newHabitName.innerHTML = `<h3 class="habit-name">${habit.name}</h3>`
+    newHabitName.innerHTML = `<h3 class="habit-name">${name}</h3>`
     streakCard.appendChild(newHabitName);
 
     const streakTable = document.createElement('table');

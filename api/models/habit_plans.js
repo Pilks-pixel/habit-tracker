@@ -52,7 +52,7 @@ class Habit_Plan {
                                                 habit_plans.end_date >= $2;`,[user.email, date]);
                 // console.log("db: ",habitData )
 
-                                                WHERE users.email= $1;`,[user.email]);
+                                               
                 
 
                 let habits = habitData.rows.map(b => new Habit_Plan(b));
@@ -60,6 +60,18 @@ class Habit_Plan {
             } catch (err) {
                 reject('habit not found');
             }
+        });
+    };
+
+    static findById(id){
+        return new Promise (async (resolve, reject) => {
+            try {
+                let habitData = await db.query('SELECT * FROM habit_plans WHERE id = $1;', [ id ]);
+                let habitPlan = new Habit_Plan(habitData.rows[0]);
+                resolve(habitPlan);
+            } catch (err) {
+                reject('habit not found');
+            };
         });
     };
 
@@ -90,13 +102,13 @@ class Habit_Plan {
 
     static update(habitData){
         return new Promise (async (resolve, reject) =>{
-
-                const {habit_id, end_date} =  habitData;
-                
+            try{
+               
+                const {end_date,id} = habitData
                
                 let result = await db.query(`UPDATE habit_plans 
                                              SET end_date = $1
-                                             WHERE id = $2;` [end_date,id]); resolve (result.rows[0]);
+                                             WHERE id = $2;`, [end_date,id]); resolve (result.rows[0]);
                                              console.log("done")
             }catch(err){
                 reject('Update failed')

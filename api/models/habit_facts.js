@@ -25,12 +25,11 @@ class Habit_Facts{
             try{
                 // let habitplans = await Habit_Plan.findById(hplan_id);
                 // let result = await db.query(`INSERT INTO habit_facts(hplan_id,hfact_timestamp) VALUES ($1,CURRENT_TIMESTAMP);`,[habitplans.id]); resolve (result.rows[0]);
-                let result = await db.query(`INSERT INTO habit_facts(hplan_id,hfact_timestamp) VALUES ($1,CURRENT_TIMESTAMP);`,[hplan_id]); 
+                let result = await db.query(`INSERT INTO habit_facts(hplan_id, hfact_timestamp) VALUES ($1,CURRENT_TIMESTAMP) RETURNING *;`,[ hplan_id ]); 
+                console.log(result)
                 resolve (result.rows[0]);
-            
-            
             } catch (err) {
-              reject('timestamp could not be created');
+              reject('Habit fact could not be created');
             }
         })
     }

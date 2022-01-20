@@ -16,8 +16,9 @@ router.get('/:id', verifyToken, async (req, res) => {
 
 router.post('/', verifyToken, async (req,res) => {
     try {
-        const habitFacts = await Habit_Facts.create(req.body.habit_id);
-        res.status(201).json(habitFacts)
+        const habitFact = await Habit_Facts.create(req.body.habit_id);
+        console.log(habitFact);
+        res.status(201).json(habitFact)
     } catch (err) {
         res.status(422).json({err})
     }

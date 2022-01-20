@@ -344,9 +344,13 @@ function showUserHabit(habit) {
     // progress bar end    
 
     // footer
+    const footerHabit0 = document.createElement('div');
+    footerHabit0.classList.add('footer0');
+    newHabitFrame.appendChild(footerHabit0);
+
     const footerHabit = document.createElement('div');
     footerHabit.classList.add('footer');
-    newHabitFrame.appendChild(footerHabit);
+    footerHabit0.appendChild(footerHabit);
 
     const delSpan = document.createElement('span');
     delSpan.classList.add('delCross');
@@ -360,6 +364,18 @@ function showUserHabit(habit) {
     footerHabit.appendChild(btnAddFact);
     // click event - create habit fact for habit plan
     btnAddFact.addEventListener('click', createHabitFact);
+
+    const newHabitFact = document.createElement('label');
+    newHabitFact.classList.add('habit-fact');
+    newHabitFact.setAttribute('data-id', habit.id);
+    newHabitFact.innerHTML = '9';
+    footerHabit0.appendChild(newHabitFact);
+
+    const newHabitPlan = document.createElement('label');
+    newHabitPlan.classList.add('habit-plan');
+    newHabitPlan.innerHTML = `/ ${habit.frequency}`;
+    footerHabit0.appendChild(newHabitPlan);
+
 
 }
 

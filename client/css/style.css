@@ -117,7 +117,10 @@ body {
 /* footer */
 footer {
     margin: 0 !important;
-    
+    /* position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%; */
 }
 
 .footer-m {
@@ -210,6 +213,11 @@ footer {
     border-radius: 10px;
     border: none;
     font-size: 20px;
+    box-shadow: 2px 3px #AEC4C2;
+}
+.btnTrackHabit:hover {
+    background-color: #ee4c28;
+    /* box-shadow: none; */
 }
 
 .habit-name {
@@ -222,6 +230,7 @@ footer {
 .anchor-streak {
     font-style: italic;
     color: #64ADA6;
+    cursor: pointer;
 }
 
 .habit-freq {
@@ -278,6 +287,10 @@ footer {
   background-color: #316879;
   color: #E6EDEE;
   border: none;
+  box-shadow: 2px 3px #AEC4C2;
+}
+.btnFact:hover {
+    background-color: #244c59;
 }
 
 .habit-fact {

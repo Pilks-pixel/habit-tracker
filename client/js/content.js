@@ -334,10 +334,10 @@ function showUserHabit(habit) {
     const newHabitName = document.createElement('div');
     newHabitName.classList.add('title-row');
     // newHabitName.innerText = habit.habit_name;
-    newHabitName.innerHTML = `<label class="habit-name">${habit.habit}</label> <p><a class="anchor-streak" ><i class="far fa-chart-bar"> >> </i></a></p>`
+    newHabitName.innerHTML = `<label class="habit-name">${habit.habit}</label> <p><a class="anchor-streak" > see streak >> </i></a></p>`
     newHabitFrame.appendChild(newHabitName);  
     document.querySelector('.anchor-streak').setAttribute('data-id', habit.id);
-    document.querySelector('.fa-chart-bar').setAttribute('data-id', habit.id);
+    // document.querySelector('.fa-chart-bar').setAttribute('data-id', habit.id);
     // streak info click event
     document.querySelector('.anchor-streak').addEventListener('click', renderStreak);
 

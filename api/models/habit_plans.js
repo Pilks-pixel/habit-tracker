@@ -95,8 +95,9 @@ class Habit_Plan {
                                                 GROUP BY DATE(hfact_timestamp)
                                                 ORDER BY DATE(hfact_timestamp);`, [ id, start_date,end_date ]);
                 // let habitPlan = new Habit_Plan(result.rows[0]);
-                console.log(result.rows[0])
-                resolve(result.rows[0]);
+        
+                console.log(result.rows)
+                resolve(result.rows);
             } catch (err) {
                 reject('habit not found');
             };

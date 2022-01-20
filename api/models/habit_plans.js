@@ -94,8 +94,7 @@ class Habit_Plan {
                                                 AND DATE(hfact_timestamp) BETWEEN $2 AND $3
                                                 GROUP BY DATE(hfact_timestamp)
                                                 ORDER BY DATE(hfact_timestamp);`, [ id, start_date,end_date ]);
-                // let habitPlan = new Habit_Plan(result.rows[0]);
-        
+     
                 console.log(result.rows)
                 resolve(result.rows);
             } catch (err) {

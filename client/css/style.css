@@ -308,3 +308,18 @@ footer {
     padding-top: 10px;
 }
 
+th {
+    background-color: #F47A60;
+    padding: 20px;
+    font-weight: bold;
+    border: 1px #fff solid ;
+    color: #E6EDEE;
+}
+
+.fact-notDone {
+    background-color: #F47A60;
+}
+
+.fact-Done {
+    background-color: #316879;
+}

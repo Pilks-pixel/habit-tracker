@@ -499,7 +499,7 @@ function showStreakTitle(id) {
     
     const streakTitle = document.createElement('div');
     streakTitle.classList.add('col-md-9');
-    streakTitle.innerHTML = '<h1 class="label-dash">Streak Info</h1>'
+    streakTitle.innerHTML = '<h1 class="label-dash">Streak last 7 days</h1>'
     streakGrid.append(streakTitle);
 
     const streakDate = document.createElement('div');
@@ -517,11 +517,6 @@ function showStreakTitle(id) {
 }
 
 async function showStreak(id, habitData) {
-    
-    habitFacts = await getHabitFacts(id);
-    console.log(id, habitFacts);
-    // appendUserHabits(habitFacts);
-
     const streakCard = document.createElement('div');
     streakCard.classList.add('streak-card');
     document.querySelector('.streak-cont').appendChild(streakCard);
@@ -543,16 +538,32 @@ async function showStreak(id, habitData) {
     const headTr = document.createElement('tr');
     streakTHead.appendChild(headTr);
 
+    habitFacts = await getHabitFacts(id);
+    console.log(id, habitFacts);
+    appendFacts(habitFacts, habitData.frequency);
+}
+
+function appendFacts(fact, plan) {
+    fact.forEach(f => appendFact(f,plan));
+}
+
+function appendFact(fact, plan) {
     const headth = document.createElement('th');
     headth.setAttribute('scope',"col");
-    headth.innerHTML = 'Mon';
-    headTr.appendChild(headth);
+    headth.innerHTML = 'Day';
+    console.log(fact, plan)
+    if (Number(fact.streak_count) < plan) {
+        headth.classList.add('fact-notDone');
+    } else {
+        headth.classList.add('fact-Done');
+    }
+    document.querySelector('tr').appendChild(headth);
 
-    const streakTBody = document.createElement('tbody');
-    streakTable.appendChild(streakTBody);
+    // const streakTBody = document.createElement('tbody');
+    // streakTable.appendChild(streakTBody);
 
-    const bodyTr = document.createElement('tr');
-    streakTHead.appendChild(bodyTr);
+    // const bodyTr = document.createElement('tr');
+    // streakTHead.appendChild(bodyTr);
 
 //     <table class="table">
 //   <thead>

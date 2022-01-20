@@ -117,6 +117,7 @@ function renderRegisterForm() {
 async function renderMain() {
     renderNavbar();
     renderDashboard();
+    renderFooter();
 }
 
 function renderNavbar() {
@@ -152,11 +153,14 @@ function renderNavbar() {
 }
 
 function renderDashboard() {
-    main.innerHTML = ''
+    main.innerHTML = '';
     showDashboardTitle();
-    // showTrackNewHabitForm();
-    // showAllHabits();
     showDashboard();
+}
+
+function renderFooter() {
+    footer.innerHTML = '';
+    
 }
 
 function showDashboardTitle() {
@@ -166,11 +170,15 @@ function showDashboardTitle() {
     dashboard.classList.add('dashboard');
     main.appendChild(dashboard);
 
+    const dashboardContainer = document.createElement('div');
+    dashboardContainer.classList.add('dash-container');
+    dashboard.appendChild(dashboardContainer);
+
     const dashboardGrid = document.createElement('div');
     dashboardGrid.classList.add('dash-row');
     dashboardGrid.classList.add('row');
     dashboardGrid.classList.add('justify-content-between');
-    dashboard.appendChild(dashboardGrid);
+    dashboardContainer.appendChild(dashboardGrid);
     
     const dashboardTitle = document.createElement('div');
     dashboardTitle.classList.add('col-md-9');
@@ -188,7 +196,7 @@ function showDashboardTitle() {
     const divContainer= document.createElement('div');
     divContainer.classList.add('container');
     divContainer.classList.add('habit-cont');
-    document.querySelector('.dashboard').appendChild(divContainer);
+    dashboardContainer.appendChild(divContainer);
 }
 
 function showDashboard() {

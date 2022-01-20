@@ -3,21 +3,6 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
-/* nav */
-
-/* Control the left side */
-   /* .left {
-    left: 0; */
-    /* margin-left: 5%; */
-  /* } */
-  
-  /* Control the right side */
-  /* .right {
-    right: 0;
-    margin-left: 50px;
-  } */
-  
-
   .centered img {
     width: 560px;
     text-align: center;
@@ -117,19 +102,34 @@ body {
 /* navbar */
 .navbar {
     background-color: #316879;
-    padding-left: 100px;
-    padding-right: 100px;
+    padding-left: 15%;
+    padding-right: 15%;
 }
 
+.navbar-brand, .nav-item, .navbar-text {
+    font-size: 1.5rem;
+} 
+
+.navbar-text {
+    padding-right: 10px;
+}
+
+
 .dashboard {
-    /* background: url('./helthyBackground.png') repeat; */
-    margin-left: 7%;
-    margin-right: 7%;
+    background-image: url("./helthyBackgroundOpacity.png") !important;
+    background-repeat: repeat;
 }
 
 /* dashboard */
-.dash-row {
-    margin-top: 30px;
+.dash-row  {
+    /* margin-top: 30px; */
+    
+    padding-top: 30px;
+}
+
+.dash-container {
+    margin-left: 15%;
+    margin-right: 15%;
 }
 
 .label-dash {
@@ -199,6 +199,7 @@ body {
     color: #316879;
     font-weight: bold;
     line-height: 30px;
+    padding-top: 10px;
 }
 .anchor-streak {
     font-style: italic;
@@ -236,7 +237,7 @@ body {
 
   .delCross {
     position: absolute;
-    top: -260px;
+    top: -255px;
     right: -210px;
     font-size: 1.5rem;
     font-weight: bold;

@@ -46,7 +46,7 @@ router.post('/login', async (req, res) => {
         // }
         // ginger add
         if (authed){
-            const payload = { username: user.username, email: user.email }
+            const payload = { username: user.username, email: user.email, userID: user.id }
             console.log(payload,process.env.TOKEN_SECRET )
             const token = jwt.sign(payload, process.env.TOKEN_SECRET);
             console.log('token') 

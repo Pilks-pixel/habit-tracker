@@ -3,6 +3,7 @@ const db = require('../db_config/config');
 
 const Habit_Plan = require('./habit_plans');
 
+
 module.exports =  class Habit_Facts{
     constructor(data){
         this.id=data.id;
@@ -27,11 +28,13 @@ module.exports =  class Habit_Facts{
                 reject('habit not found');
             }
         });   
+
     }
 
     static create(hplan_id){
         return new Promise (async (resolve, reject) =>{
             try{
+
                 // let habitplans = await Habit_Plan.findById(hplan_id);
                 // let result = await db.query(`INSERT INTO habit_facts(hplan_id,hfact_timestamp) VALUES ($1,CURRENT_TIMESTAMP);`,[habitplans.id]); resolve (result.rows[0]);
                 let result = await db.query(`INSERT INTO habit_facts(hplan_id, hfact_timestamp) VALUES ($1,CURRENT_TIMESTAMP) RETURNING *;`,[ hplan_id ]); 
@@ -39,6 +42,8 @@ module.exports =  class Habit_Facts{
                 resolve (result.rows[0]);
             } catch (err) {
               reject('Habit fact could not be created');
+
+
             }
         })
     }
@@ -46,3 +51,4 @@ module.exports =  class Habit_Facts{
 
 
 // module.exports = Habit_Facts;
+

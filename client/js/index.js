@@ -26,6 +26,7 @@ document.addEventListener("click", function (e) {
 function updateMain(path) {
     main.innerHTML = '';
     nav.innerHTML = '';
+    footer.innerHTML = '';
     console.log("updateMain",path)
     if (path) {
         switch(path){

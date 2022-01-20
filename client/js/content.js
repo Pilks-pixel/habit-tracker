@@ -162,7 +162,7 @@ function renderFooter() {
     footer.innerHTML = '';
     const footerDiv =  document.createElement('div');
     footerDiv.classList.add('footer-m');
-    footerDiv.innerHTML = 'made by Coffee before Coding  <i class="fas fa-coffee"></i>'
+    footerDiv.innerHTML = 'made by  <i class="fas fa-coffee"></i>  Coffee before Coding'
     footer.appendChild(footerDiv);
 }
 

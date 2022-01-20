@@ -26,13 +26,6 @@ GET http://localhost:3000/habits
 Content-Type: application/json
 authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkhlbGxvIiwiZW1haWwiOiJIZWxsb0Bsb2wiLCJpYXQiOjE2NDI1ODc2ODh9.gb-gTLKuKZi1Wx_SvDYBEsUdu1tCy_WCC77sbUM0V0I
 
-{
-    "email": "Hello@lol",
-    "date":"2022-01-11"
-
-}
-
-
 ###
 
 GET http://localhost:3000/habitplans?date=2022-01-11

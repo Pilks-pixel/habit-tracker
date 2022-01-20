@@ -3,11 +3,12 @@ const router = express.Router();
 
 const { verifyToken } = require('../middleware/auth');
 
-const Habit_Facts = require('../models/habit_Facts');
+const Habit_Facts = require('../models/habit_facts');
 
 router.get('/:id', verifyToken, async (req, res) => {
     try {
-        const habitFacts = await Habit_Facts.findById(req.body.habit_id, req.query.date)
+        console.log("fact",req.params.id, req.query.date)
+        const habitFacts = await Habit_Facts.findByID(req.params.id, req.query.date)
         res.json(habitFacts)
     } catch (err) {
         res.status(500).send({ err })

@@ -91,11 +91,35 @@ async function postHabitFact(e){
                 'authorization': localStorage.getItem('token'),
                 'Content-Type': "application/json"
             }
-        }
+        };
         let url = new URL('http://localhost:3000/habitfacts');
         url.searchParams.append('date',document.querySelector('.inputHabitsDate').value);
         console.log(options)
         
+        const response = await fetch(url, options);
+        const data = await response.json();
+        if(data.err){
+            console.warn(data.err);
+            logout();
+        };
+        return data;
+    } catch (err) {
+        console.warn(err);
+    };
+};
+
+async function getHabitFacts(hplan_id){
+    try {
+        const options = {
+            headers: {
+                'authorization': localStorage.getItem('token'),
+                'Content-Type': "application/json"
+            }
+        }
+        
+        let url = new URL(`http://localhost:3000/habitfacts/${hplan_id}`);
+        url.searchParams.append('date',document.querySelector('.inputHabitsDate').value);
+        console.log(url)
         const response = await fetch(url, options);
         const data = await response.json();
         if(data.err){

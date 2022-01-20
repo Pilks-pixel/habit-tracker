@@ -118,13 +118,12 @@ async function getHabitFacts(hplan_id){
         }
         
         let url = new URL(`http://localhost:3000/habitplans/${hplan_id}`);
-        // one week behind period
+        // one week bhind period
         let start_date = new Date(document.querySelector('.inputStreakDate').value)
         let end_date = new Date(start_date);
         end_date.setDate(end_date.getDate() - 7);
         let end_date0 = new Date(end_date).toISOString().substring(0, 10);
         console.log(start_date, end_date0)
-        
         url.searchParams.append('start_date', end_date0);
         url.searchParams.append('end_date', document.querySelector('.inputStreakDate').value );
         

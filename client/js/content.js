@@ -355,7 +355,6 @@ function showUserHabit(habit) {
     // streak info click event
     newStreakLink.addEventListener('click', renderStreak);
     
-
     const newHabitFreq = document.createElement('div');
     newHabitFreq.classList.add('habit-freq');
     // newHabitFreq.innerText = `${habit.frequency} time(s) per day`;
@@ -518,7 +517,9 @@ function showStreakTitle(id) {
 
 async function showStreak(id, habitData) {
     // set dates
-    let end_date = new Date(document.querySelector('.inputStreakDate').value)
+    const today = new Date().toISOString().substring(0, 10);
+    // let end_date = new Date(document.querySelector('.inputStreakDate').value)
+    let end_date = new Date(today);
     let start_date0 = new Date(end_date);
     start_date0.setDate(start_date0.getDate() - 6);
     // let start_date = new Date(start_date0).toISOString().substring(0, 10);
@@ -549,13 +550,13 @@ async function showStreak(id, habitData) {
     const habitFacts = await getHabitFacts(id);
     console.log(id, habitFacts);
 
-    console.log(start_date, end_date);
+    // console.log(start_date, end_date);
     const firstFactDay = new Date(habitFacts[0].date);
 
     for (let day = start_date; day <= end_date; day.setDate(day.getDate() + 1)) {
-        console.log('dates', day, firstFactDay)
+        // console.log('dates', day, firstFactDay)
         if (day < firstFactDay) {
-            console.log('gray!')
+            // console.log('gray!')
             appendGray(day);
         } 
     }

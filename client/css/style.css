@@ -327,3 +327,7 @@ th {
 .fact-grey {
     background-color: darkgrey;
 }
+
+.inputStreakDate {
+    visibility: hidden;
+}

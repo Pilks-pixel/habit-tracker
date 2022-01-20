@@ -234,7 +234,7 @@ function showTrackNewHabitForm () {
 
     const labelTrackNew = document.createElement('div');
     labelTrackNew.classList.add('labelTrackNew-row');
-    labelTrackNew.innerHTML= '<label class="labelTrackNew">Track new</label>';
+    labelTrackNew.innerHTML= '<label class="labelTrackNew">New Habit</label>';
     newHabitFrame.appendChild(labelTrackNew);
 
     const formTrackNew = document.createElement('form');
@@ -269,7 +269,7 @@ function showTrackNewHabitForm () {
     newBtnTrackHabit.classList.add('input-group');
     newBtnTrackHabit.classList.add('text-right');
     // newBtnTrackHabit.classList.add('mb-3');
-    newBtnTrackHabit.innerHTML = '<button class="btn btn-dark btnTrackHabit" type="submit">Track habit</button>';
+    newBtnTrackHabit.innerHTML = '<button class="btn btn-dark btnTrackHabit" type="submit">Track new habit</button>';
     formTrackNew.appendChild(newBtnTrackHabit);  
     document.querySelector('.btnTrackHabit').addEventListener('click', trackNewHabit);
 
@@ -357,9 +357,9 @@ function showUserHabit(habit) {
     newShell.classList.add('shell');
     newBarRow.appendChild(newShell);
 
-    console.log(`width:${habit.count / habit.frequency*100}%`);
     const newBar = document.createElement('div');
     newBar.classList.add('bar');
+    newBar.setAttribute('data-id', habit.id);
     newBar.setAttribute('style', `width:${100 - habit.count / habit.frequency*100}%`);
     newShell.appendChild(newBar);
     // progress bar end    
@@ -403,11 +403,11 @@ function showUserHabit(habit) {
             newHabitPlan.innerHTML = 'Complete!';  
         } else {
             newHabitFact.innerHTML = habit.count;
-            newHabitPlan.innerHTML = `/ ${habit.frequency}`;
+            newHabitPlan.innerHTML = `/${habit.frequency}`;
         }
     } else {
         newHabitFact.innerHTML = '0';
-        newHabitPlan.innerHTML = `/ ${habit.frequency}`;
+        newHabitPlan.innerHTML = `/${habit.frequency}`;
     };
 }
 
@@ -425,18 +425,23 @@ function createHabitFact(e) {
     if (habitPlan.innerHTML != "Complete!") {
         postHabitFact(e);
 
-        let fact = habitFact.innerHTML;
-        let plan = habitPlan.innerText[2];
+        let fact = Number(habitFact.innerHTML);
+        let plan = Number(habitPlan.innerText[1]);
         console.log(plan)
+        let newfact = fact + 1;
 
-        if (Number(fact)+1  == Number(plan)) {
+        if (newfact == plan) {
             habitFact.innerHTML = '';
             habitPlan.innerHTML = "Complete!"
         } else {
-            fact = Number(habitFact.innerHTML) + 1;
-            habitFact.innerHTML = fact;
+            // fact = fact + 1;
+            habitFact.innerHTML = newfact;
             console.log("fact",fact);
         }
+        // change bar
+        const bar = document.querySelector(`.bar[data-id='${id}']`);
+        bar.setAttribute('style', `width:${100 - newfact / plan*100}%`);
+
     }
        
 }

@@ -9,16 +9,20 @@ class Habit_Plan {
         this.beginDate =  data.begin_date;
         this.endDate =  data.end_date;
         this.frequency = data.frequency;
+
         //this.user = {id: data.id, path: `users/${data.user_id}`}
         // ginger replace
         // this.habit = {id: data.id, path: `habits/${data.habit_id}`}
         // ginger there is not need habit.id
         // this.habit = {habit_name: data.habit_name, path: `habits/${data.habit_id}`}
         this.habit = data.habit_name
+        
     }
-    // ginger remove get - static get all(user)
-    static all(user){
+
+    // ginger remove get - static get all(user), add query parameter date
+    static all(user, date){
         return new Promise (async (resolve, reject) => {
+            console.log("param.date",date)
             try {
                 // ginger replace
                 // let habitData = await db.query(`SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency 
@@ -27,27 +31,30 @@ class Habit_Plan {
                 //                                 ON habit_plans.habit_id = habits.id
                 //                                 WHERE habit_plans.user_id = $1;`,[id]);
                 console.log("user", user.email);
+                // let habitData = await db.query(`SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id, habits.id as habit_id, habit_plans.id as id
+                //                                 FROM habit_plans
+                //                                 INNER JOIN habits
+                //                                 ON habit_plans.habit_id = habits.id
+                //                                 INNER JOIN users
+                //                                 ON habit_plans.user_id = users.id
+                //                                 WHERE users.email= $1;`,[user.email]);
                 let habitData = await db.query(`SELECT habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id, habits.id as habit_id, habit_plans.id as id
                                                 FROM habit_plans
                                                 INNER JOIN habits
                                                 ON habit_plans.habit_id = habits.id
                                                 INNER JOIN users
                                                 ON habit_plans.user_id = users.id
+
+                                                WHERE users.email= $1
+                                                AND
+                                                habit_plans.begin_date <= $2
+                                                AND
+                                                habit_plans.end_date >= $2;`,[user.email, date]);
+                // console.log("db: ",habitData )
+
                                                 WHERE users.email= $1;`,[user.email]);
                 
-                // let habitData = await db.query(`SELECT count(*),habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id, habits.id as habit_id, habit_plans.id as id
-                //                                 FROM habit_plans
-                //                                 INNER JOIN habits
-                //                                 ON habit_plans.habit_id = habits.id
-                //                                 INNER JOIN users
-                //                                 ON habit_plans.user_id = users.id
-                //                                 INNER JOIN habit_facts
-                //                                 ON habit_plans.id = habit_facts.hplan_id
-                //                                 WHERE users.email= $1 AND 
-                //                                 GROUP BY habit_facts.hplan_id,habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id,habits.id,habit_plans.id;`,[user.email]);
-                
 
-                console.log("db: ",habitData )
                 let habits = habitData.rows.map(b => new Habit_Plan(b));
                 resolve (habits);
             } catch (err) {
@@ -59,14 +66,22 @@ class Habit_Plan {
     static create(habitData){
         return new Promise (async (resolve, reject) => {
             try {
-                const {id,habit_name,begin_date,end_date,frequency} = habitData;
-                
-            
+
+                const {user_id,habit_id,begin_date,end_date,frequency} = habitData;
+                console.log("Create",user_id,habit_id,begin_date,end_date,frequency)
+                // let user = await User.findById(user_id);
+                // let habit = await Habit.findById(habit_id);
+                // let result = await db.query(`INSERT INTO habit_plans
+                //     (user_id, habit_id, begin_date, end_date, frequency)
+                //     VALUES ($1, $2, $3, $4, $5)
+                //     RETURNING id;`, [ user.id,habit.id,begin_date,end_date,frequency]); 
                 let result = await db.query(`INSERT INTO habit_plans
                     (user_id, habit_id, begin_date, end_date, frequency)
                     VALUES ($1, $2, $3, $4, $5)
-                    RETURNING id;`, [ id,habit_name,begin_date,end_date,frequency]); resolve (result.rows[0]);
-                    
+                    RETURNING *;`, [ user_id,habit_id,begin_date,end_date,frequency]); 
+                
+                resolve (result.rows[0]);
+
             } catch (err) {
                 reject('habit could not be created');
             }
@@ -75,8 +90,8 @@ class Habit_Plan {
 
     static update(habitData){
         return new Promise (async (resolve, reject) =>{
-            try{
-                const {id,end_date} =  habitData;
+
+                const {habit_id, end_date} =  habitData;
                 
                
                 let result = await db.query(`UPDATE habit_plans 

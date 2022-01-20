@@ -24,7 +24,7 @@ router.post('/', verifyToken, async (req,res) => {
     }
 } )
 
-router.patch('/', verifyToken, async (req,res) => {
+router.put('/update', verifyToken, async (req,res) => {
     try {
         const habitPlan = await Habit_Plan.update(req.body);
         res.status(201).json(habitPlan)

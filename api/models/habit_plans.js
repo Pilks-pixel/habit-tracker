@@ -34,6 +34,19 @@ class Habit_Plan {
                                                 INNER JOIN users
                                                 ON habit_plans.user_id = users.id
                                                 WHERE users.email= $1;`,[user.email]);
+                
+                // let habitData = await db.query(`SELECT count(*),habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id, habits.id as habit_id, habit_plans.id as id
+                //                                 FROM habit_plans
+                //                                 INNER JOIN habits
+                //                                 ON habit_plans.habit_id = habits.id
+                //                                 INNER JOIN users
+                //                                 ON habit_plans.user_id = users.id
+                //                                 INNER JOIN habit_facts
+                //                                 ON habit_plans.id = habit_facts.hplan_id
+                //                                 WHERE users.email= $1 AND 
+                //                                 GROUP BY habit_facts.hplan_id,habits.habit_name, habit_plans.begin_date, habit_plans.end_date, habit_plans.frequency, habit_plans.user_id,habits.id,habit_plans.id;`,[user.email]);
+                
+
                 console.log("db: ",habitData )
                 let habits = habitData.rows.map(b => new Habit_Plan(b));
                 resolve (habits);

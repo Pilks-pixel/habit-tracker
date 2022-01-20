@@ -331,15 +331,30 @@ function showUserHabit(habit) {
     // newTitleRow.classList.add('title-row');
     // newHabitFrame.appendChild(newTitleRow);
 
-    const newHabitName = document.createElement('div');
-    newHabitName.classList.add('title-row');
+    const newTitleRow = document.createElement('div');
+    newTitleRow.classList.add('title-row');
     // newHabitName.innerText = habit.habit_name;
-    newHabitName.innerHTML = `<label class="habit-name">${habit.habit}</label> <p><a class="anchor-streak" > see streak >> </i></a></p>`
-    newHabitFrame.appendChild(newHabitName);  
-    document.querySelector('.anchor-streak').setAttribute('data-id', habit.id);
-    // document.querySelector('.fa-chart-bar').setAttribute('data-id', habit.id);
+    // newHabitName.innerHTML = `<label class="habit-name">${habit.habit}</label> <p><a class="anchor-streak" > see streak >> </a></p>`
+    newHabitFrame.appendChild(newTitleRow);  
+
+    const newHabitName = document.createElement('label');
+    newHabitName.classList.add('habit-name');
+    newHabitName.innerHTML = habit.habit;
+    newTitleRow.appendChild(newHabitName);  
+
+    const newPStreak = document.createElement('p');
+    newTitleRow.appendChild(newPStreak);
+
+    const newStreakLink = document.createElement('a');
+    newStreakLink.classList.add('anchor-streak');
+    newStreakLink.innerHTML = `see streak >>`
+    newStreakLink.setAttribute('data-id', habit.id);
+    newPStreak.appendChild(newStreakLink);
+
     // streak info click event
-    document.querySelector('.anchor-streak').addEventListener('click', renderStreak);
+    newStreakLink.addEventListener('click', renderStreak);
+    
+    
 
     const newHabitFreq = document.createElement('div');
     newHabitFreq.classList.add('habit-freq');
@@ -453,7 +468,7 @@ function renderStreak(e) {
 
     main.innerHTML = '';
     showStreakTitle(id);
-    // showStreak(id);
+    showStreak(id);
 };
 
 function showStreakTitle(id) {
@@ -481,9 +496,9 @@ function showStreakTitle(id) {
     const streakDate = document.createElement('div');
     streakDate.classList.add('col-md-3');
     // dashboardDate.classList.add('justify-content-center');
-    streakDate.innerHTML = '<input type="date" class="form-control inputHabitsDate" name="inputHabitsDate">'
+    streakDate.innerHTML = '<input type="date" class="form-control inputStreakDate" name="inputStreakDate">'
     streakGrid.append(streakDate);
-    // streakDate.querySelector('.inputHabitsDate').setAttribute('value', today);
+    streakDate.querySelector('.inputStreakDate').setAttribute('value', today);
     // streakDate.querySelector('.inputHabitsDate').addEventListener('change', showDashboard);
     
     const divContainer= document.createElement('div');
@@ -492,13 +507,18 @@ function showStreakTitle(id) {
     streakContainer.appendChild(divContainer);
 }
 
-function showStreak(id) {
+async function showStreak(id) {
+    
+    habitFacts = await getHabitFacts(id);
+    console.log(habitFacts);
+    // appendUserHabits(habitFacts);
+
     const streakCard = document.createElement('div');
     streakCard.classList.add('streak-card');
     document.querySelector('.streak-cont').appendChild(streakCard);
 
     const newHabitName = document.createElement('div');
-    newHabitName.innerHTML = `<h3 class="habit-name">${habit.name}</h3>`
+    // newHabitName.innerHTML = `<h3 class="habit-name">${habit.name}</h3>`
     streakCard.appendChild(newHabitName);
 
     const streakTable = document.createElement('table');
@@ -513,7 +533,7 @@ function showStreak(id) {
     const headth = document.createElement('th');
     headth.setAttribute('scope',"col");
     headth.innerHTML = 'Mon';
-    headtr.appendChild(headTh);
+    headTr.appendChild(headth);
 
     const streakTBody = document.createElement('tbody');
     streakTable.appendChild(streakTBody);

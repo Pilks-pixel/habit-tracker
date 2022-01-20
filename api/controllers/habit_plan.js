@@ -16,9 +16,9 @@ router.get('/', verifyToken, async (req, res) => {
     }
 })
 
-router.get('/:id', async (req, res) => {
+router.get('/:id', verifyToken, async (req, res) => {
     try {
-        const habitPlan = await Habit_Plan.findById(req.params.id,req.body)
+        const habitPlan = await Habit_Plan.findById(req.params.id,req.query)
 
         res.json(habitPlan)
     } catch (err) {

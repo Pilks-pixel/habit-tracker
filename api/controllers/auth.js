@@ -22,6 +22,9 @@ router.post('/register', async (req, res) => {
 
 router.post('/login', async (req, res) => {
     try {
+        console.log(req.body.email)
+        console.log(req.body.passwordDigest)
+        console.log(req.body.username)
         const user = await User.findByEmail(req.body.email)
         console.log('user', user)
         if(!user){ throw new Error('No user with this email') }
@@ -43,7 +46,7 @@ router.post('/login', async (req, res) => {
         // }
         // ginger add
         if (authed){
-            const payload = { username: user.username, email: user.email }
+            const payload = { username: user.username, email: user.email, userID: user.id }
             console.log(payload,process.env.TOKEN_SECRET )
             const token = jwt.sign(payload, process.env.TOKEN_SECRET);
             console.log('token') 

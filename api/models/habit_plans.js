@@ -44,12 +44,17 @@ class Habit_Plan {
                                                 ON habit_plans.habit_id = habits.id
                                                 INNER JOIN users
                                                 ON habit_plans.user_id = users.id
+
                                                 WHERE users.email= $1
                                                 AND
                                                 habit_plans.begin_date <= $2
                                                 AND
                                                 habit_plans.end_date >= $2;`,[user.email, date]);
                 // console.log("db: ",habitData )
+
+                                                WHERE users.email= $1;`,[user.email]);
+                
+
                 let habits = habitData.rows.map(b => new Habit_Plan(b));
                 resolve (habits);
             } catch (err) {

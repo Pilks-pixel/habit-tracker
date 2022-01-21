@@ -523,7 +523,7 @@ async function showStreak(id, habitData) {
     // let end_date = new Date(document.querySelector('.inputStreakDate').value)
     let end_date = new Date(today);
     let start_date0 = new Date(end_date);
-    start_date0.setDate(start_date0.getDate() - 6);
+    start_date0.setDate(start_date0.getDate() - 7);
     // let start_date = new Date(start_date0).toISOString().substring(0, 10);
     let start_date = new Date(start_date0);
     
@@ -553,7 +553,16 @@ async function showStreak(id, habitData) {
     console.log(id, habitFacts);
 
     console.log(start_date, end_date);
-    const firstFactDay = new Date(habitFacts[0].date);
+    
+    let firstFactDay = end_date
+    // firstFactDay.setDate(firstFactDay.getDate() + 1)
+    
+    if (habitFacts.length != 0 ) {
+        firstFactDay = new Date(habitFacts[0].date);
+    }
+    // const firstFactDay = new Date(habitFacts[0].date) || new Date(9999-12-31);
+
+    // const firstFactDay = new Date(habitFacts[0].date);
 
     for (let day = start_date; day <= end_date; day.setDate(day.getDate() + 1)) {
         console.log('dates', day, firstFactDay)

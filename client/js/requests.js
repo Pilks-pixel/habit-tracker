@@ -139,3 +139,38 @@ async function getHabitFacts(hplan_id){
         console.warn(err);
     }
 }
+
+async function updateEndDate(e){
+    e.preventDefault();
+    // hplan_id = ;
+    console.log(e.target, e.target.getAttribute('data-id'))
+    const hplan_id = e.target.getAttribute('data-id');
+    console.log('id', hplan_id);
+    try {
+        const habitData = {
+            end_date: document.querySelector('.inputHabitsDate').value
+            };
+        console.log("update plan", habitData );
+        const options = {
+            method: 'PATCH',
+            body: JSON.stringify(habitData),
+            headers: {
+                'authorization': localStorage.getItem('token'),
+                'Content-Type': "application/json"
+            }
+        };
+        let url = new URL(`http://localhost:3000/habitplans/${hplan_id}`);
+        // url.searchParams.append('date',document.querySelector('.inputHabitsDate').value);
+        console.log(options)
+        
+        const response = await fetch(url, options);
+        const data = await response.json();
+        if(data.err){
+            console.warn(data.err);
+            logout();
+        };
+        return data;
+    } catch (err) {
+        console.warn(err);
+    };
+};

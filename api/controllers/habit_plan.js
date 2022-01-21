@@ -36,9 +36,10 @@ router.post('/', verifyToken, async (req,res) => {
     }
 } )
 
-router.patch('/update', verifyToken, async (req,res) => {
+router.patch('/:id', verifyToken, async (req,res) => {
     try {
-        const habitPlan = await Habit_Plan.update(req.body);
+        console.log('patch',ireq.body,req.params.id )
+        const habitPlan = await Habit_Plan.update(req.body,req.params.id);
         res.status(201).json(habitPlan)
     } catch (err) {
         res.status(422).json({err})

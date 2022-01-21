@@ -390,8 +390,10 @@ function showUserHabit(habit) {
 
     const delSpan = document.createElement('span');
     delSpan.classList.add('delCross');
-    delSpan.innerHTML = '<i class="fa fa-times"></i>';
+    delSpan.innerHTML = `<i class="fa fa-times" data-id=${habit.id}></i>`;
+    delSpan.setAttribute('data-id', habit.id);
     footerHabit.appendChild(delSpan)
+    delSpan.addEventListener('click',updateEndDate);
 
     const btnAddFact = document.createElement('button');
     btnAddFact.classList.add('btnFact');
@@ -399,7 +401,7 @@ function showUserHabit(habit) {
     btnAddFact.setAttribute('data-id', habit.id);
     footerHabit.appendChild(btnAddFact);
     // click event - create habit fact for habit plan
-    btnAddFact.addEventListener('click', createHabitFact);
+    // btnAddFact.addEventListener('click', createHabitFact);
 
     const newHabitFact = document.createElement('label');
     newHabitFact.classList.add('habit-fact');

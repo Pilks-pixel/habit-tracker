@@ -132,7 +132,7 @@ class Habit_Plan {
         return new Promise (async (resolve, reject) =>{
             try{
                
-                const {end_date,id} = habitData
+                const {end_date, id} = habitData
                
                 let result = await db.query(`UPDATE habit_plans 
                                              SET end_date = $1

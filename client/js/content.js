@@ -156,6 +156,7 @@ function renderNavbar() {
 
 function renderDashboard() {
     main.innerHTML = '';
+    body.classList.add('pattern');
     showDashboardTitle();
     showDashboard();
 }
@@ -504,7 +505,7 @@ function showStreakTitle(id) {
     const streakDate = document.createElement('div');
     streakDate.classList.add('col-md-3');
     // dashboardDate.classList.add('justify-content-center');
-    streakDate.innerHTML = '<a href=#> back to Dashboard</a><input type="date" class="form-control inputStreakDate" name="inputStreakDate">'
+    streakDate.innerHTML = '<a class="dash-link" href=#> back to Dashboard</a><input type="date" class="form-control inputStreakDate" name="inputStreakDate">'
     streakGrid.append(streakDate);
     streakDate.querySelector('.inputStreakDate').setAttribute('value', today);
     // streakDate.querySelector('.inputHabitsDate').addEventListener('change', showDashboard);

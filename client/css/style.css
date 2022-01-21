@@ -1,17 +1,24 @@
 body {
     background-color: #E2FFFC;
     font-family: 'Roboto', sans-serif;
+    height: 100%;
+    padding-bottom: 45px;
 }
 
-  .centered img {
+.pattern {
+    background-image: url("./helthyBackgroundOpacity.png") !important;
+    background-repeat: repeat;
+}
+
+.centered img {
     width: 560px;
     text-align: center;
     /* position: absolute; */
     top: 50%;
     left: 50%;
-  }
+}
 
-  .appTitle {
+.appTitle {
       color: #316879;
       text-align: center;
       margin-top: 40px;
@@ -117,10 +124,11 @@ body {
 /* footer */
 footer {
     margin: 0 !important;
-    /* position: fixed;
+    position: fixed;
+    /* position: absolute; */
     left: 0;
     bottom: 0;
-    width: 100%; */
+    width: 100%;
 }
 
 .footer-m {
@@ -135,10 +143,10 @@ footer {
 
 
 /* dashboard */
-.dashboard {
+/* .dashboard, .streak {
     background-image: url("./helthyBackgroundOpacity.png") !important;
     background-repeat: repeat;
-}
+} */
 
 /* dashboard */
 .dash-row, .streak-row  {
@@ -317,6 +325,12 @@ footer {
     padding-bottom: 30px;
     size: 30px;
 }
+
+.dash-link {
+    /* color: #316879; */
+    font-style: italic;
+}
+
 .label-streak {
     color: #316879;
 }

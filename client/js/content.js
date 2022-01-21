@@ -491,20 +491,20 @@ function showStreakTitle(id) {
     streak.appendChild(streakContainer);
 
     const streakGrid = document.createElement('div');
-    streakGrid.classList.add('dash-row');
+    streakGrid.classList.add('streak-row');
     streakGrid.classList.add('row');
     streakGrid.classList.add('justify-content-between');
     streakContainer.appendChild(streakGrid);
     
     const streakTitle = document.createElement('div');
     streakTitle.classList.add('col-md-9');
-    streakTitle.innerHTML = '<h1 class="label-dash">Streak last 7 days</h1>'
+    streakTitle.innerHTML = '<h1 class="label-streak">Streak last 7 days</h1>'
     streakGrid.append(streakTitle);
 
     const streakDate = document.createElement('div');
     streakDate.classList.add('col-md-3');
     // dashboardDate.classList.add('justify-content-center');
-    streakDate.innerHTML = '<input type="date" class="form-control inputStreakDate" name="inputStreakDate">'
+    streakDate.innerHTML = '<a href=#> back to Dashboard</a><input type="date" class="form-control inputStreakDate" name="inputStreakDate">'
     streakGrid.append(streakDate);
     streakDate.querySelector('.inputStreakDate').setAttribute('value', today);
     // streakDate.querySelector('.inputHabitsDate').addEventListener('change', showDashboard);
@@ -518,6 +518,7 @@ function showStreakTitle(id) {
 async function showStreak(id, habitData) {
     // set dates
     const today = new Date().toISOString().substring(0, 10);
+
     // let end_date = new Date(document.querySelector('.inputStreakDate').value)
     let end_date = new Date(today);
     let start_date0 = new Date(end_date);
@@ -534,9 +535,9 @@ async function showStreak(id, habitData) {
     newHabitName.innerHTML = `<h3 class="habit-name">${habitData.habit}</h3>`
     streakCard.appendChild(newHabitName);
 
-    const newFreq = document.createElement('p');
-    newFreq.innerHTML = `${habitData.frequency} time(s) per day`;
-    streakCard.appendChild(newFreq);
+    // const newFreq = document.createElement('p');
+    // newFreq.innerHTML = `${habitData.frequency} time(s) per day`;
+    // streakCard.appendChild(newFreq);
 
     const streakTable = document.createElement('table');
     streakCard.appendChild(streakTable);
@@ -550,13 +551,13 @@ async function showStreak(id, habitData) {
     const habitFacts = await getHabitFacts(id);
     console.log(id, habitFacts);
 
-    // console.log(start_date, end_date);
+    console.log(start_date, end_date);
     const firstFactDay = new Date(habitFacts[0].date);
 
     for (let day = start_date; day <= end_date; day.setDate(day.getDate() + 1)) {
-        // console.log('dates', day, firstFactDay)
+        console.log('dates', day, firstFactDay)
         if (day < firstFactDay) {
-            // console.log('gray!')
+            console.log('gray!')
             appendGray(day);
         } 
     }

@@ -141,7 +141,7 @@ footer {
 }
 
 /* dashboard */
-.dash-row  {
+.dash-row, .streak-row  {
     /* margin-top: 30px; */
     
     padding-top: 30px;
@@ -307,6 +307,36 @@ footer {
     font-weight: bold;
     padding-top: 10px;
 }
+/* Streak info */
+.streak-container {
+    margin-right: 20%;
+    margin-left: 20%;
+}
+
+.streak-row {
+    padding-bottom: 30px;
+    size: 30px;
+}
+.label-streak {
+    color: #316879;
+}
+
+.habit-name {
+    text-align: center;
+}
+
+
+.streak-card {
+    border: 1px #316879 solid ;
+    background-color: #E6EDEE;
+    border-radius: 15px;
+    padding-bottom: 20px;
+    /* width: 50%; */
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 20px;
+}
+
 
 th {
     background-color: #F47A60;
@@ -315,6 +345,12 @@ th {
     border: 1px #fff solid ;
     color: #E6EDEE;
     width: 65px;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
 }
 
 .fact-notDone {
